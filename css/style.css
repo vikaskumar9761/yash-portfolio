@@ -429,41 +429,41 @@ body[data-theme="light"] .btn-editorial-accent:hover {
   display: block;
 }
 
-/* Hero Rotating Blackhole Video (Direct spaceportfolio.netlify.app video) */
-.hero-blackhole-wrap {
+/* About Section Procedural 3D Cosmic Energy Canvas Backdrop (Replaces Video) */
+.about-canvas-bg-wrap {
   position: absolute;
-  top: -220px;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
+  max-width: 1200px;
   height: 100%;
-  min-height: 820px;
+  min-height: 700px;
   overflow: hidden;
   z-index: 0;
   pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  mask-image: radial-gradient(ellipse at 50% 32%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 76%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 32%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 76%);
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 80%);
+  opacity: 0.88;
   transition: opacity 0.5s ease;
 }
 
-body[data-theme="light"] .hero-blackhole-wrap {
-  opacity: 0.12;
-  mix-blend-mode: multiply;
+body[data-theme="light"] .about-canvas-bg-wrap {
+  opacity: 0.38;
 }
 
-.hero-blackhole-video {
+#about-energy-canvas {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: rotate(180deg) scale(1.15);
-  opacity: 0.88;
-  filter: contrast(1.12) brightness(1.08);
+  display: block;
 }
 
-/* Skills Video Background (Direct spaceportfolio.netlify.app video) */
-.skills-video-wrap {
+/* Skills & Process Glowing Ambient Canvas Backdrops */
+.skills-glow-wrap,
+.process-glow-wrap {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -471,21 +471,59 @@ body[data-theme="light"] .hero-blackhole-wrap {
   overflow: hidden;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.32;
-  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 78%);
-  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 78%);
+}
+
+.skills-glow-orb,
+.process-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.45;
   transition: opacity 0.5s ease;
 }
 
-body[data-theme="light"] .skills-video-wrap {
-  opacity: 0.08;
-  mix-blend-mode: multiply;
+.skills-glow-orb.orb-left {
+  top: 20%;
+  left: 10%;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, #5400FF 0%, rgba(84, 0, 255, 0.4) 50%, transparent 75%);
+  animation: landingCirclePulse 9s ease-in-out infinite alternate;
 }
 
-.skills-video-el {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.skills-glow-orb.orb-right {
+  bottom: 15%;
+  right: 8%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #FB8DFF 0%, rgba(196, 129, 255, 0.4) 45%, transparent 70%);
+  animation: characterRimFloat 8s ease-in-out infinite alternate;
+}
+
+.process-glow-orb {
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(194, 164, 255, 0.5) 0%, rgba(84, 0, 255, 0.25) 50%, transparent 75%);
+  animation: landingCirclePulse 10s ease-in-out infinite alternate;
+}
+
+body[data-theme="light"] .skills-glow-orb.orb-left {
+  background: radial-gradient(circle, rgba(192, 132, 87, 0.28) 0%, transparent 70%);
+  opacity: 0.25;
+}
+
+body[data-theme="light"] .skills-glow-orb.orb-right {
+  background: radial-gradient(circle, rgba(139, 94, 60, 0.24) 0%, transparent 70%);
+  opacity: 0.25;
+}
+
+body[data-theme="light"] .process-glow-orb {
+  background: radial-gradient(circle, rgba(192, 132, 87, 0.22) 0%, transparent 70%);
+  opacity: 0.2;
 }
 
 /* Theme Toggle Button (Redoyanul Haque Dark / Editorial Light) */
@@ -952,26 +990,48 @@ body[data-theme="light"] .floating-tag:hover {
   box-shadow: 0 4px 12px rgba(139, 94, 60, 0.2);
 }
 
-/* 3D Scene Hero Stage & Redoyanul Haque Backlight Glowing Orbs */
-.hero-stage-container {
-  position: relative;
+/* Hero 3D Interactive Canvas Background Container */
+.hero-canvas-bg-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
-  height: 540px;
-  background: radial-gradient(circle at 50% 50%, rgba(32, 18, 52, 0.72) 0%, rgba(11, 8, 12, 0.92) 100%);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(194, 164, 255, 0.28);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(84, 0, 255, 0.22);
+  height: 100%;
+  min-height: 650px;
   overflow: hidden;
+  z-index: 1;
+  pointer-events: auto;
   display: flex;
-  align-items: center;
   justify-content: center;
-  transition: var(--transition-base);
+  align-items: center;
+  cursor: grab;
 }
 
-body[data-theme="light"] .hero-stage-container {
-  background: radial-gradient(circle at 50% 50%, rgba(255, 253, 249, 0.95) 0%, rgba(239, 231, 218, 0.85) 100%);
-  border: 1px solid rgba(41, 37, 36, 0.12);
-  box-shadow: var(--shadow-md);
+.hero-canvas-bg-wrap:active {
+  cursor: grabbing;
+}
+
+.hero-main-container {
+  pointer-events: none;
+}
+
+.hero-main-container a,
+.hero-main-container button,
+.hero-main-container .hero-portrait-stage-card,
+.hero-main-container .hero-floating-tags,
+.hero-main-container .floating-tag {
+  pointer-events: auto;
+}
+
+#hero-3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  touch-action: none;
 }
 
 /* Redoyanul Haque Signature Backlight Glowing Orbs */
@@ -980,11 +1040,11 @@ body[data-theme="light"] .hero-stage-container {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 440px;
-  height: 440px;
+  width: 520px;
+  height: 520px;
   border-radius: 50%;
   background: radial-gradient(circle, #5400FF 0%, rgba(84, 0, 255, 0.45) 50%, transparent 75%);
-  filter: blur(85px);
+  filter: blur(95px);
   z-index: 0;
   opacity: 0.75;
   pointer-events: none;
@@ -994,13 +1054,13 @@ body[data-theme="light"] .hero-stage-container {
 .character-rim {
   position: absolute;
   top: 45%;
-  left: 55%;
+  left: 52%;
   transform: translate(-50%, -50%);
-  width: 360px;
-  height: 360px;
+  width: 440px;
+  height: 440px;
   border-radius: 50%;
   background: radial-gradient(circle, #FB8DFF 0%, #C481FF 45%, transparent 72%);
-  filter: blur(75px);
+  filter: blur(85px);
   z-index: 0;
   opacity: 0.65;
   pointer-events: none;
@@ -1008,142 +1068,280 @@ body[data-theme="light"] .hero-stage-container {
 }
 
 @keyframes landingCirclePulse {
-  0% {
-    transform: translate(-50%, -50%) scale(0.92);
-    opacity: 0.6;
-  }
-
-  50% {
-    transform: translate(-48%, -52%) scale(1.1);
-    opacity: 0.85;
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(0.92);
-    opacity: 0.6;
-  }
+  0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.6; }
+  50% { transform: translate(-48%, -52%) scale(1.1); opacity: 0.85; }
+  100% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.6; }
 }
 
 @keyframes characterRimFloat {
-  0% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: translate(-52%, -48%) scale(1.15) rotate(35deg);
-    opacity: 0.75;
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(1) rotate(0deg);
-    opacity: 0.5;
-  }
+  0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.5; }
+  50% { transform: translate(-52%, -48%) scale(1.15) rotate(35deg); opacity: 0.75; }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.5; }
 }
 
 body[data-theme="light"] .landing-circle1 {
   background: radial-gradient(circle, rgba(196, 129, 255, 0.35) 0%, transparent 70%);
-  filter: blur(65px);
+  filter: blur(75px);
   opacity: 0.32;
 }
 
 body[data-theme="light"] .character-rim {
   background: radial-gradient(circle, rgba(251, 141, 255, 0.28) 0%, transparent 70%);
-  filter: blur(60px);
+  filter: blur(70px);
   opacity: 0.28;
 }
 
-#hero-3d-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-  position: relative;
-  z-index: 2;
-}
-
-/* Portrait inset card on 3D stage */
-.hero-portrait-card {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: rgba(20, 15, 26, 0.85);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(194, 164, 255, 0.28);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  z-index: 10;
-  max-width: 290px;
-  transition: var(--transition-base);
-}
-
-body[data-theme="light"] .hero-portrait-card {
-  background: rgba(250, 247, 242, 0.94);
-  border: 1px solid rgba(41, 37, 36, 0.12);
-  box-shadow: var(--shadow-sm);
-}
-
-.hero-portrait-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--brand-primary);
-  box-shadow: 0 12px 30px rgba(194, 164, 255, 0.25);
-}
-
-.hero-portrait-thumb {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
-  border: 2px solid var(--brand-primary);
-}
-
-.hero-portrait-info h4 {
-  font-size: 0.88rem;
-  font-weight: 700;
-  margin: 0;
-  color: var(--text-primary);
-}
-
-.hero-portrait-info p {
-  font-size: 0.72rem;
-  color: var(--brand-primary);
-  margin: 0;
-  font-weight: 500;
-}
-
-/* 3D Canvas status overlay */
+/* 3D Canvas 360 Interaction Status Badge */
 .stage-instruction-badge {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  background: rgba(20, 15, 26, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 6px 14px;
+  top: 90px;
+  right: 28px;
+  background: rgba(20, 15, 26, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 8px 16px;
   border-radius: var(--radius-full);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--text-muted);
-  border: 1px solid rgba(194, 164, 255, 0.25);
+  color: #EAE5EC;
+  border: 1px solid rgba(194, 164, 255, 0.35);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   pointer-events: none;
   z-index: 10;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55), 0 0 15px rgba(194, 164, 255, 0.2);
+  letter-spacing: 0.02em;
 }
 
 body[data-theme="light"] .stage-instruction-badge {
-  background: rgba(250, 247, 242, 0.9);
-  border: 1px solid rgba(41, 37, 36, 0.12);
-  color: var(--text-muted);
+  background: rgba(250, 247, 242, 0.95);
+  border: 1px solid rgba(139, 94, 60, 0.25);
+  color: var(--text-primary);
+  box-shadow: 0 4px 18px rgba(41, 37, 36, 0.12);
+}
 
-  gap: 6px;
-  pointer-events: none;
-  z-index: 10;
+.stage-instruction-badge i {
+  color: var(--brand-accent);
+  font-size: 0.95rem;
+  animation: spinSlow 6s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Hero Portrait Showcase Card (Right Column) */
+.hero-portrait-stage-card {
+  position: relative;
+  background: rgba(20, 15, 26, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(194, 164, 255, 0.28);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(84, 0, 255, 0.2);
+  transition: var(--transition-base);
+  max-width: 480px;
+  margin-left: auto;
+  pointer-events: auto;
+}
+
+body[data-theme="light"] .hero-portrait-stage-card {
+  background: rgba(255, 253, 249, 0.88);
+  border: 1px solid rgba(139, 94, 60, 0.2);
+  box-shadow: 0 20px 50px rgba(41, 37, 36, 0.1);
+}
+
+.hero-portrait-stage-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-primary);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 50px rgba(194, 164, 255, 0.35);
+}
+
+.hero-portrait-frame {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 16 / 11;
+  border: 1.5px solid rgba(194, 164, 255, 0.25);
+  margin-bottom: 1.4rem;
+  background: #140F1A;
+}
+
+.hero-portrait-main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-portrait-stage-card:hover .hero-portrait-main-img {
+  transform: scale(1.04);
+}
+
+.hero-portrait-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+}
+
+.hero-portrait-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(11, 8, 12, 0.82);
+  backdrop-filter: blur(8px);
+  color: #C2A4FF;
+  border: 1px solid rgba(194, 164, 255, 0.35);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+}
+
+body[data-theme="light"] .hero-portrait-tag {
+  background: rgba(250, 247, 242, 0.9);
+  color: var(--brand-primary);
+  border-color: rgba(139, 94, 60, 0.3);
+}
+
+.hero-portrait-head h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+  color: var(--text-primary);
+}
+
+.hero-portrait-role {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  display: block;
+  margin-bottom: 0.8rem;
+}
+
+.hero-portrait-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.2rem;
+}
+
+.hero-portrait-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(194, 164, 255, 0.15);
+}
+
+body[data-theme="light"] .hero-portrait-stats {
+  border-top-color: rgba(139, 94, 60, 0.15);
+}
+
+.stat-pill {
+  background: rgba(194, 164, 255, 0.08);
+  border: 1px solid rgba(194, 164, 255, 0.16);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.4rem;
+  text-align: center;
+  transition: var(--transition-base);
+}
+
+body[data-theme="light"] .stat-pill {
+  background: rgba(139, 94, 60, 0.06);
+  border-color: rgba(139, 94, 60, 0.15);
+}
+
+.stat-num {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--brand-primary);
+  line-height: 1.1;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* Responsive Rules for Mobile Hero Stage Card */
+@media (max-width: 991.98px) {
+  .hero-portrait-stage-card {
+    max-width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  .stage-instruction-badge {
+    top: 75px;
+    right: 16px;
+    font-size: 0.72rem;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero-portrait-stage-card {
+    padding: 1.4rem;
+    border-radius: var(--radius-md);
+  }
+
+  .hero-portrait-head h3 {
+    font-size: 1.2rem;
+  }
+
+  .hero-portrait-role {
+    font-size: 0.82rem;
+  }
+
+  .hero-portrait-desc {
+    font-size: 0.85rem;
+  }
+
+  .stage-instruction-badge {
+    top: 70px;
+    right: 12px;
+    padding: 5px 10px;
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hero-portrait-stage-card {
+    padding: 1.1rem;
+  }
+
+  .hero-portrait-frame {
+    aspect-ratio: 16 / 10;
+    margin-bottom: 1rem;
+  }
+
+  .stat-num {
+    font-size: 1rem;
+  }
+
+  .stat-label {
+    font-size: 0.62rem;
+  }
+
+  .stage-instruction-badge {
+    top: 66px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 0.64rem;
+  }
 }
 
 .stage-instruction-badge i {

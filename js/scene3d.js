@@ -33,8 +33,17 @@
   // Scene lights reference for dynamic Dark/Light theme switching
   let ambientLight, mainKeyLight, lilacRimLight, magentaRimLight, uvFillLight;
 
-  // Mouse interaction state
+  // Mouse & 360-degree rotation interaction state
   const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+  let rotTargetY = 0;
+  let rotCurrentY = 0;
+  let rotTargetX = 0;
+  let rotCurrentX = 0;
+  let dragAngleY = 0;
+  let dragAngleX = 0;
+  let isPointerDown = false;
+  let lastPointerX = 0;
+  let lastPointerY = 0;
   const raycaster = new THREE.Raycaster();
   const mouseCoords = new THREE.Vector2(-1000, -1000);
   let hoveredObject = null;
@@ -310,6 +319,9 @@
 
     // Event listeners
     setupEventListeners();
+
+    // Trigger immediate responsive framing
+    onWindowResize();
 
     // Visibility Observer to save performance
     setupIntersectionObserver();
@@ -617,16 +629,18 @@
   }
 
   /**
-   * Setup Event Listeners (Parallax, Resize, Raycasting)
+   * Setup Event Listeners (Parallax, 360 Drag & Rotation, Resize, Raycasting)
    */
   function setupEventListeners() {
-    // Parallax mouse movement
+    // Parallax & 360-degree mouse movement tracking across window
     window.addEventListener('mousemove', onMouseMove, { passive: true });
 
-    // Touch movement for mobile devices
-    if (container) {
-      container.addEventListener('touchmove', onTouchMove, { passive: true });
-    }
+    // Pointer / Drag events for continuous 360° rotational control
+    window.addEventListener('mousedown', onPointerDown, { passive: true });
+    window.addEventListener('mouseup', onPointerUp, { passive: true });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('touchend', onPointerUp, { passive: true });
 
     // Debounced Resize
     window.addEventListener('resize', onWindowResize);
@@ -637,22 +651,65 @@
     });
   }
 
+  function onPointerDown(e) {
+    if (e.target && (e.target.closest('a') || e.target.closest('button') || e.target.closest('.theme-toggle-btn'))) {
+      return;
+    }
+    isPointerDown = true;
+    lastPointerX = e.clientX || 0;
+    lastPointerY = e.clientY || 0;
+    if (container) container.style.cursor = 'grabbing';
+  }
+
+  function onTouchStart(e) {
+    if (e.touches.length > 0) {
+      if (e.target && (e.target.closest('a') || e.target.closest('button'))) {
+        return;
+      }
+      isPointerDown = true;
+      lastPointerX = e.touches[0].clientX;
+      lastPointerY = e.touches[0].clientY;
+    }
+  }
+
+  function onPointerUp() {
+    isPointerDown = false;
+    if (container) container.style.cursor = 'grab';
+  }
+
   function onMouseMove(e) {
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    if (isPointerDown) {
+      const deltaX = clientX - lastPointerX;
+      const deltaY = clientY - lastPointerY;
+      dragAngleY += deltaX * 0.015;
+      dragAngleX += deltaY * 0.008;
+      dragAngleX = Math.max(-0.6, Math.min(0.6, dragAngleX));
+      lastPointerX = clientX;
+      lastPointerY = clientY;
+    }
+
     // Normalized coordinates (-1 to 1)
-    mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+    mouse.targetX = (clientX / window.innerWidth) * 2 - 1;
+    mouse.targetY = -(clientY / window.innerHeight) * 2 + 1;
+
+    // 360-degree rotation target calculation
+    rotTargetY = dragAngleY + (mouse.targetX * Math.PI * 2);
+    rotTargetX = dragAngleX + (-mouse.targetY * 0.45);
 
     // Raycast coordinates for container bounds
     if (container) {
       const rect = container.getBoundingClientRect();
       if (
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom
       ) {
-        mouseCoords.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        mouseCoords.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        mouseCoords.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+        mouseCoords.y = -((clientY - rect.top) / rect.height) * 2 + 1;
       } else {
         mouseCoords.x = -1000;
         mouseCoords.y = -1000;
@@ -663,26 +720,60 @@
   function onTouchMove(e) {
     if (e.touches.length > 0) {
       const touch = e.touches[0];
-      mouse.targetX = (touch.clientX / window.innerWidth) * 2 - 1;
-      mouse.targetY = -(touch.clientY / window.innerHeight) * 2 + 1;
+      const clientX = touch.clientX;
+      const clientY = touch.clientY;
+
+      if (isPointerDown) {
+        const deltaX = clientX - lastPointerX;
+        const deltaY = clientY - lastPointerY;
+        dragAngleY += deltaX * 0.015;
+        dragAngleX += deltaY * 0.008;
+        dragAngleX = Math.max(-0.6, Math.min(0.6, dragAngleX));
+        lastPointerX = clientX;
+        lastPointerY = clientY;
+      }
+
+      mouse.targetX = (clientX / window.innerWidth) * 2 - 1;
+      mouse.targetY = -(clientY / window.innerHeight) * 2 + 1;
+
+      rotTargetY = dragAngleY + (mouse.targetX * Math.PI * 2);
+      rotTargetX = dragAngleX + (-mouse.targetY * 0.45);
     }
   }
 
   function onWindowResize() {
     if (!container || !camera || !renderer) return;
 
-    const width = container.clientWidth;
-    const height = container.clientHeight;
+    const width = container.clientWidth || window.innerWidth;
+    const height = container.clientHeight || (window.innerHeight * 0.85);
 
     camera.aspect = width / height;
 
-    // Adjust camera distance for mobile screens
-    if (width < 600) {
-      camera.position.z = 15;
+    // Responsive scaling and camera framing on mobile, tablet & desktop
+    if (width < 480) {
+      camera.position.set(0, 0.4, 16.5);
+      if (mainGroup) {
+        mainGroup.scale.set(0.72, 0.72, 0.72);
+        mainGroup.position.set(0, 0, 0);
+      }
+    } else if (width < 768) {
+      camera.position.set(0, 0.5, 14.5);
+      if (mainGroup) {
+        mainGroup.scale.set(0.82, 0.82, 0.82);
+        mainGroup.position.set(0, 0, 0);
+      }
     } else if (width < 992) {
-      camera.position.z = 13;
+      camera.position.set(0, 0.6, 13.0);
+      if (mainGroup) {
+        mainGroup.scale.set(0.92, 0.92, 0.92);
+        mainGroup.position.set(0, 0, 0);
+      }
     } else {
-      camera.position.z = 11.5;
+      camera.position.set(0, 0.65, 11.5);
+      if (mainGroup) {
+        mainGroup.scale.set(1.0, 1.0, 1.0);
+        mainGroup.position.set(0.5, 0, 0);
+      }
     }
 
     camera.updateProjectionMatrix();
@@ -716,9 +807,12 @@
 
     if (!isSceneVisible) return;
 
-    // Smooth mouse lerp interpolation
-    mouse.x += (mouse.targetX - mouse.x) * 0.05;
-    mouse.y += (mouse.targetY - mouse.y) * 0.05;
+    // Smooth interpolation with silky damping
+    mouse.x += (mouse.targetX - mouse.x) * 0.06;
+    mouse.y += (mouse.targetY - mouse.y) * 0.06;
+
+    rotCurrentY += (rotTargetY - rotCurrentY) * 0.065;
+    rotCurrentX += (rotTargetX - rotCurrentX) * 0.065;
 
     // Redraw dynamic timeline monitor screen texture
     if (timelineTextureContext && timelineTexture) {
@@ -726,14 +820,16 @@
       timelineTexture.needsUpdate = true;
     }
 
-    // Apply Parallax and gentle floating if reduced-motion is not requested
+    // Apply 360-degree rotation and floating kinematics
     if (!prefersReducedMotion) {
       const seconds = time * 0.001;
 
-      // Gentle parallax tilt on main group
+      // Full 360-degree rotation driven by mouse & drag + subtle organic breathing
       if (mainGroup) {
-        mainGroup.rotation.y = mouse.x * 0.35;
-        mainGroup.rotation.x = -mouse.y * 0.22;
+        const idleFloatY = Math.sin(seconds * 0.7) * 0.05;
+        const idleFloatX = Math.cos(seconds * 0.5) * 0.03;
+        mainGroup.rotation.y = rotCurrentY + idleFloatY;
+        mainGroup.rotation.x = rotCurrentX + idleFloatX;
       }
 
       // Animate floating items
@@ -771,13 +867,14 @@
 
   /**
    * ==============================================================================
-   * 3D BACKGROUND MOTION UNIVERSE & SCULPTURAL KINETIC MODELS
-   * Large interactive 3D Graphic Design & Motion sculptures drifting in depth,
-   * responding with dynamic rotational momentum and parallax to page scroll and mouse.
+   * CINEMATIC SECTION-BY-SECTION 3D MOTION UNIVERSE (SCROLL-TRANSFORMATIVE)
+   * Transforms smoothly across 7 distinct 3D cinematic stages tailored to each
+   * section's discipline (About, Work, Archive, Services, Skills, Experience, Contact).
+   * Hero (Home) remains dedicated to the interactive 3D hero canvas.
    * ==============================================================================
    */
   let bgScene, bgCamera, bgRenderer;
-  let bgStars, bgSculptures = [];
+  let bgStars, bgStages = [];
   let bgAmbientLight, bgKeyLight, bgLilacLight, bgMagentaLight, bgSunLight;
   let scrollState = {
     current: 0,
@@ -787,7 +884,7 @@
   };
 
   // Background Materials Reference for Theme Switching
-  let bgMatPrimary, bgMatAccent, bgMatGold, bgMatWireframe, bgMatChrome;
+  let bgMatPrimary, bgMatAccent, bgMatGold, bgMatWireframe, bgMatChrome, bgMatDarkBezel;
 
   function initBackgroundUniverse() {
     const bgCanvas = document.getElementById('space-stars-canvas');
@@ -807,25 +904,25 @@
     bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     // --------------------------------------------------------------------------
-    // 1. DYNAMIC LIGHTING RIG FOR BACKGROUND 3D SCULPTURES
+    // 1. DYNAMIC LIGHTING RIG FOR 3D BACKGROUND STAGES
     // --------------------------------------------------------------------------
-    bgAmbientLight = new THREE.AmbientLight(0x181024, 1.4);
+    bgAmbientLight = new THREE.AmbientLight(0x181024, 1.5);
     bgScene.add(bgAmbientLight);
 
     bgSunLight = new THREE.DirectionalLight(0xFFFFFF, 1.8);
     bgSunLight.position.set(12, 18, 15);
     bgScene.add(bgSunLight);
 
-    bgKeyLight = new THREE.PointLight(PALETTE.lilacAccent, 4.5, 60);
+    bgKeyLight = new THREE.PointLight(PALETTE.lilacAccent, 4.5, 70);
     bgKeyLight.position.set(10, 8, 8);
     bgScene.add(bgKeyLight);
 
-    bgLilacLight = new THREE.PointLight(PALETTE.violetSecondary, 3.8, 55);
+    bgLilacLight = new THREE.PointLight(PALETTE.violetSecondary, 3.8, 65);
     bgLilacLight.position.set(-12, -8, 6);
     bgScene.add(bgLilacLight);
 
-    bgMagentaLight = new THREE.PointLight(PALETTE.magentaRim, 4.0, 50);
-    bgMagentaLight.position.set(8, -20, 8);
+    bgMagentaLight = new THREE.PointLight(PALETTE.magentaRim, 4.0, 60);
+    bgMagentaLight.position.set(8, -25, 8);
     bgScene.add(bgMagentaLight);
 
     // --------------------------------------------------------------------------
@@ -836,7 +933,7 @@
       metalness: 0.88,
       roughness: 0.16,
       emissive: 0x3D1A7A,
-      emissiveIntensity: 0.4
+      emissiveIntensity: 0.45
     });
 
     bgMatAccent = new THREE.MeshStandardMaterial({
@@ -844,7 +941,7 @@
       metalness: 0.85,
       roughness: 0.18,
       emissive: 0x6A1B7A,
-      emissiveIntensity: 0.35
+      emissiveIntensity: 0.4
     });
 
     bgMatGold = new THREE.MeshStandardMaterial({
@@ -852,7 +949,7 @@
       metalness: 0.92,
       roughness: 0.22,
       emissive: 0x54361C,
-      emissiveIntensity: 0.25
+      emissiveIntensity: 0.3
     });
 
     bgMatChrome = new THREE.MeshStandardMaterial({
@@ -860,7 +957,7 @@
       metalness: 0.95,
       roughness: 0.1,
       emissive: 0x241D30,
-      emissiveIntensity: 0.2
+      emissiveIntensity: 0.25
     });
 
     bgMatWireframe = new THREE.MeshBasicMaterial({
@@ -870,10 +967,18 @@
       opacity: 0.45
     });
 
+    bgMatDarkBezel = new THREE.MeshStandardMaterial({
+      color: 0x140F1A,
+      metalness: 0.88,
+      roughness: 0.22,
+      emissive: 0x2A1A4A,
+      emissiveIntensity: 0.35
+    });
+
     // --------------------------------------------------------------------------
-    // 3. BACKGROUND CELESTIAL STARFIELD & FLOATING DUST PARTICLES
+    // 3. BACKGROUND CELESTIAL STARFIELD & FLOATING COSMIC DUST
     // --------------------------------------------------------------------------
-    const starCount = 3800;
+    const starCount = 4200;
     const positions = new Float32Array(starCount * 3);
     const colors = new Float32Array(starCount * 3);
 
@@ -882,17 +987,17 @@
       const v = Math.random();
       const theta = u * 2.0 * Math.PI;
       const phi = Math.acos(2.0 * v - 1.0);
-      const r = Math.cbrt(Math.random()) * 2.2;
+      const r = Math.cbrt(Math.random()) * 2.5;
 
       const sinPhi = Math.sin(phi);
-      positions[i * 3] = r * sinPhi * Math.cos(theta) * 18;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 80;
-      positions[i * 3 + 2] = r * Math.cos(phi) * 12 - 4;
+      positions[i * 3] = r * sinPhi * Math.cos(theta) * 20;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 160;
+      positions[i * 3 + 2] = r * Math.cos(phi) * 14 - 6;
 
       const seed = Math.random();
-      if (seed > 0.7) {
+      if (seed > 0.68) {
         colors[i * 3] = 0.98; colors[i * 3 + 1] = 0.55; colors[i * 3 + 2] = 1.0; // Magenta
-      } else if (seed > 0.35) {
+      } else if (seed > 0.32) {
         colors[i * 3] = 0.76; colors[i * 3 + 1] = 0.64; colors[i * 3 + 2] = 1.0; // Lilac
       } else {
         colors[i * 3] = 0.96; colors[i * 3 + 1] = 0.94; colors[i * 3 + 2] = 0.98; // White
@@ -904,7 +1009,7 @@
     starGeom.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const starMat = new THREE.PointsMaterial({
-      size: 0.05,
+      size: 0.052,
       vertexColors: true,
       transparent: true,
       opacity: 0.85,
@@ -914,152 +1019,459 @@
     bgStars = new THREE.Points(starGeom, starMat);
     bgScene.add(bgStars);
 
-    // --------------------------------------------------------------------------
-    // 4. BIG PROCEDURAL 3D MOTION SCULPTURES (HERO -> ABOUT -> WORK -> FOOTER)
-    // --------------------------------------------------------------------------
-    const sculpturesGroup = new THREE.Group();
-    bgScene.add(sculpturesGroup);
+    // Master universe container for all section stages
+    const universeGroup = new THREE.Group();
+    bgScene.add(universeGroup);
+    bgStages = [];
 
-    // A. GIANT KINETIC TORUS KNOT (Hero / About Upper Right)
-    const knotGeom = new THREE.TorusKnotGeometry(2.4, 0.65, 120, 24, 2, 3);
-    const knotMesh = new THREE.Mesh(knotGeom, bgMatPrimary);
-    knotMesh.position.set(7.5, 4.0, -4.5);
-    sculpturesGroup.add(knotMesh);
+    // Helper to generate simple 3D typographic canvas badge
+    function createMonolithTexture(text, sub) {
+      const cv = document.createElement('canvas');
+      cv.width = 512;
+      cv.height = 160;
+      const c = cv.getContext('2d');
+      c.fillStyle = '#140F1A';
+      c.fillRect(0, 0, 512, 160);
+      c.strokeStyle = '#C2A4FF';
+      c.lineWidth = 6;
+      c.strokeRect(6, 6, 500, 148);
+      c.fillStyle = '#FB8DFF';
+      c.fillRect(12, 12, 8, 8);
+      c.fillRect(492, 12, 8, 8);
+      c.fillStyle = '#FAF7F2';
+      c.font = '900 36px Roboto, sans-serif';
+      c.textAlign = 'center';
+      c.fillText(text, 256, 75);
+      if (sub) {
+        c.fillStyle = '#C2A4FF';
+        c.font = '700 18px Roboto, sans-serif';
+        c.letterSpacing = '3px';
+        c.fillText(sub, 256, 120);
+      }
+      return new THREE.CanvasTexture(cv);
+    }
 
-    bgSculptures.push({
-      mesh: knotMesh,
-      baseY: 4.0,
-      rotX: 0.006,
-      rotY: 0.009,
-      rotZ: 0.004,
-      scrollMultiplier: 0.004,
-      amplitude: 0.3,
-      speed: 1.2
-    });
+    // ==========================================================================
+    // STAGE 01: ABOUT ME SECTION (Y = -9.0)
+    // Theme: Visual Storytelling, 11+ Years of Craft, Creative Mobius Flow
+    // ==========================================================================
+    const stageAbout = new THREE.Group();
+    stageAbout.position.set(0, -9.0, -2.5);
 
-    // Outer Glowing Wireframe Cage for Torus Knot
-    const knotWireGeom = new THREE.TorusKnotGeometry(2.48, 0.68, 60, 16, 2, 3);
-    const knotWireMesh = new THREE.Mesh(knotWireGeom, bgMatWireframe);
-    knotMesh.add(knotWireMesh);
+    // 1. Kinetic Infinite Mobius Loop of Craft
+    const mobiusGeom = new THREE.TorusKnotGeometry(2.7, 0.52, 120, 24, 1, 2);
+    const mobiusMesh = new THREE.Mesh(mobiusGeom, bgMatPrimary);
+    mobiusMesh.position.set(6.8, 0, -2.0);
+    stageAbout.add(mobiusMesh);
 
-    // B. PRISMATIC HOLOGRAPHIC ICOSAHEDRON (Featured Work / Archive Mid Left)
-    const icoGroup = new THREE.Group();
-    icoGroup.position.set(-8.5, -4.5, -3.5);
+    const mobiusWire = new THREE.Mesh(new THREE.TorusKnotGeometry(2.76, 0.55, 60, 16, 1, 2), bgMatWireframe);
+    mobiusMesh.add(mobiusWire);
 
-    const icoCoreGeom = new THREE.IcosahedronGeometry(2.0, 0);
-    const icoCoreMesh = new THREE.Mesh(icoCoreGeom, bgMatAccent);
-    icoGroup.add(icoCoreMesh);
+    // 2. Luminous Holographic Creative Core (Mid Left)
+    const coreGroup = new THREE.Group();
+    coreGroup.position.set(-7.5, 0.5, -2.0);
 
-    const icoWireGeom = new THREE.IcosahedronGeometry(2.25, 0);
-    const icoWireMesh = new THREE.Mesh(icoWireGeom, bgMatWireframe);
-    icoGroup.add(icoWireMesh);
+    const creativeCore = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), bgMatAccent);
+    coreGroup.add(creativeCore);
 
-    sculpturesGroup.add(icoGroup);
+    const coreHalo = new THREE.Mesh(new THREE.TorusGeometry(2.5, 0.06, 16, 64), bgMatGold);
+    coreHalo.rotation.x = Math.PI / 2.5;
+    coreGroup.add(coreHalo);
+    stageAbout.add(coreGroup);
 
-    bgSculptures.push({
-      mesh: icoGroup,
-      baseY: -4.5,
-      rotX: -0.008,
-      rotY: 0.012,
-      rotZ: 0.006,
-      scrollMultiplier: 0.005,
-      amplitude: 0.35,
-      speed: 1.5
-    });
+    // 3. Floating 3D Monolith Plates
+    const plateTex1 = createMonolithTexture('11+ YEARS CRAFT', 'DESIGN & MOTION');
+    const plate1 = new THREE.Mesh(new THREE.BoxGeometry(3.6, 1.1, 0.12), [
+      bgMatDarkBezel, bgMatDarkBezel, bgMatDarkBezel, bgMatDarkBezel,
+      new THREE.MeshBasicMaterial({ map: plateTex1 }), bgMatDarkBezel
+    ]);
+    plate1.position.set(-6.5, -3.2, 0.5);
+    plate1.rotation.set(0.15, 0.35, -0.05);
+    stageAbout.add(plate1);
 
-    // C. MULTI-AXIS GYROSCOPIC GIMBAL RINGS (Services / Skills Zone Mid Right)
-    const gimbalGroup = new THREE.Group();
-    gimbalGroup.position.set(8.0, -12.5, -3.0);
+    const plateTex2 = createMonolithTexture('VISUAL STORYTELLING', 'NARRATIVE PACING');
+    const plate2 = new THREE.Mesh(new THREE.BoxGeometry(3.8, 1.1, 0.12), [
+      bgMatDarkBezel, bgMatDarkBezel, bgMatDarkBezel, bgMatDarkBezel,
+      new THREE.MeshBasicMaterial({ map: plateTex2 }), bgMatDarkBezel
+    ]);
+    plate2.position.set(6.2, -3.5, 0.5);
+    plate2.rotation.set(-0.12, -0.3, 0.05);
+    stageAbout.add(plate2);
 
-    const ringOuterGeom = new THREE.TorusGeometry(2.8, 0.08, 16, 64);
-    const ringOuter = new THREE.Mesh(ringOuterGeom, bgMatGold);
-    gimbalGroup.add(ringOuter);
-
-    const ringMidGeom = new THREE.TorusGeometry(2.0, 0.07, 16, 64);
-    const ringMid = new THREE.Mesh(ringMidGeom, bgMatPrimary);
-    ringMid.rotation.x = Math.PI / 3;
-    gimbalGroup.add(ringMid);
-
-    const ringInnerGeom = new THREE.TorusGeometry(1.2, 0.06, 16, 48);
-    const ringInner = new THREE.Mesh(ringInnerGeom, bgMatAccent);
-    ringInner.rotation.y = Math.PI / 2.5;
-    gimbalGroup.add(ringInner);
-
-    // Center glowing diamond node
-    const nodeGeom = new THREE.OctahedronGeometry(0.55, 0);
-    const nodeMesh = new THREE.Mesh(nodeGeom, bgMatChrome);
-    gimbalGroup.add(nodeMesh);
-
-    sculpturesGroup.add(gimbalGroup);
-
-    bgSculptures.push({
-      mesh: gimbalGroup,
-      baseY: -12.5,
-      rotX: 0.01,
-      rotY: -0.007,
-      rotZ: 0.008,
-      scrollMultiplier: 0.006,
-      amplitude: 0.25,
-      speed: 1.4,
-      subRings: [ringOuter, ringMid, ringInner, nodeMesh]
-    });
-
-    // D. KINETIC VECTOR BEZIER KEYFRAME DIAMONDS (Scattered through depth planes)
-    const diamondPositions = [
-      [-6.5, 8.5, -6.0, bgMatPrimary, 1.2],
-      [5.5, -0.5, -5.0, bgMatAccent, 0.9],
-      [-5.5, -17.5, -4.5, bgMatGold, 1.4],
-      [6.5, -20.0, -5.5, bgMatPrimary, 1.1],
-      [-4.0, -26.5, -4.0, bgMatAccent, 1.3],
-      [4.5, -28.0, -5.0, bgMatGold, 1.0]
-    ];
-
-    diamondPositions.forEach((dp, idx) => {
-      const dGeom = new THREE.OctahedronGeometry(0.7 * dp[4], 0);
-      const dMesh = new THREE.Mesh(dGeom, dp[3]);
-      dMesh.position.set(dp[0], dp[1], dp[2]);
-      sculpturesGroup.add(dMesh);
-
-      bgSculptures.push({
-        mesh: dMesh,
-        baseY: dp[1],
-        rotX: (idx % 2 === 0 ? 1 : -1) * 0.014,
-        rotY: 0.012,
-        rotZ: 0.008,
-        scrollMultiplier: 0.003 + (idx * 0.0008),
-        amplitude: 0.2 + (idx * 0.04),
-        speed: 1.6 + (idx * 0.2)
-      });
-    });
-
-    // E. KINETIC CHROMATIC FLOATING SPHERE & ORBITAL DISC (Footer / Contact Zone)
-    const sphereGroup = new THREE.Group();
-    sphereGroup.position.set(-6.5, -23.0, -4.0);
-
-    const bigSphereGeom = new THREE.SphereGeometry(1.8, 32, 32);
-    const bigSphere = new THREE.Mesh(bigSphereGeom, bgMatChrome);
-    sphereGroup.add(bigSphere);
-
-    const orbitHaloGeom = new THREE.TorusGeometry(2.6, 0.05, 16, 64);
-    const orbitHalo = new THREE.Mesh(orbitHaloGeom, bgMatPrimary);
-    orbitHalo.rotation.x = Math.PI / 2.3;
-    sphereGroup.add(orbitHalo);
-
-    sculpturesGroup.add(sphereGroup);
-
-    bgSculptures.push({
-      mesh: sphereGroup,
-      baseY: -23.0,
+    universeGroup.add(stageAbout);
+    bgStages.push({
+      group: stageAbout,
+      targetY: -9.0,
+      name: 'About Section Stage',
       rotX: 0.008,
+      rotY: 0.012,
+      rotZ: 0.004,
+      subMeshes: [mobiusMesh, coreGroup, creativeCore, coreHalo, plate1, plate2]
+    });
+
+    // ==========================================================================
+    // STAGE 02: FEATURED WORK SECTION (Y = -19.0)
+    // Theme: 3D Motion Graphics, Brand Films & Commercial Video Editing Rig
+    // ==========================================================================
+    const stageWork = new THREE.Group();
+    stageWork.position.set(0, -19.0, -2.5);
+
+    // 1. Giant Cinema Film Reel Disc (Right)
+    const workReelGroup = new THREE.Group();
+    workReelGroup.position.set(7.5, 0, -2.5);
+    workReelGroup.rotation.set(0.25, -0.35, 0.15);
+
+    const wReelOuter = new THREE.Mesh(new THREE.TorusGeometry(3.0, 0.22, 16, 64), bgMatPrimary);
+    workReelGroup.add(wReelOuter);
+
+    const wReelHub = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.25, 24), bgMatChrome);
+    wReelHub.rotation.x = Math.PI / 2;
+    workReelGroup.add(wReelHub);
+
+    for (let s = 0; s < 6; s++) {
+      const spoke = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 2.6, 8), bgMatGold);
+      spoke.rotation.z = (s * Math.PI * 2) / 6;
+      workReelGroup.add(spoke);
+    }
+    stageWork.add(workReelGroup);
+
+    // 2. Optical Aperture Lens Rig (Left)
+    const lensGroup = new THREE.Group();
+    lensGroup.position.set(-7.5, 0.5, -2.0);
+    lensGroup.rotation.set(-0.2, 0.4, -0.1);
+
+    const lensAperture = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.14, 16, 48), bgMatGold);
+    lensGroup.add(lensAperture);
+
+    const lensInnerGlass = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 1.8, 0.08, 32), bgMatChrome);
+    lensInnerGlass.rotation.x = Math.PI / 2;
+    lensGroup.add(lensInnerGlass);
+
+    for (let b = 0; b < 5; b++) {
+      const blade = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.35, 0.04), bgMatAccent);
+      blade.position.set(Math.cos(b * 1.25) * 0.9, Math.sin(b * 1.25) * 0.9, 0.06);
+      blade.rotation.z = b * 1.25 + 0.5;
+      lensGroup.add(blade);
+    }
+    stageWork.add(lensGroup);
+
+    // 3. Continuous 3D Timeline Kinetic Bezier Waveform Track
+    const workWaveCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-9.0, -2.8, -2.0),
+      new THREE.Vector3(-4.5, 2.2, 0.5),
+      new THREE.Vector3(0.0, -1.8, 1.5),
+      new THREE.Vector3(4.5, 2.5, -0.5),
+      new THREE.Vector3(9.0, -2.0, -2.0)
+    ]);
+    const workWaveMesh = new THREE.Mesh(new THREE.TubeGeometry(workWaveCurve, 80, 0.1, 16, false), bgMatPrimary);
+    stageWork.add(workWaveMesh);
+
+    // Keyframe diamonds on timeline curve
+    [-4.5, 0.0, 4.5].forEach((kx, idx) => {
+      const kf = new THREE.Mesh(new THREE.OctahedronGeometry(0.45, 0), idx % 2 === 0 ? bgMatAccent : bgMatGold);
+      kf.position.set(kx, idx === 1 ? -1.8 : 2.35, idx === 1 ? 1.5 : 0.0);
+      stageWork.add(kf);
+    });
+
+    universeGroup.add(stageWork);
+    bgStages.push({
+      group: stageWork,
+      targetY: -19.0,
+      name: 'Featured Work Stage',
+      rotX: 0.007,
       rotY: 0.014,
       rotZ: 0.005,
-      scrollMultiplier: 0.005,
-      amplitude: 0.3,
-      speed: 1.3
+      subMeshes: [workReelGroup, lensGroup, workWaveMesh]
+    });
+
+    // ==========================================================================
+    // STAGE 03: COMPLETE ARCHIVE / GALLERY (Y = -29.0)
+    // Theme: Multi-Disciplinary Design Archive, Prismatic Holographic Crystals
+    // ==========================================================================
+    const stageGallery = new THREE.Group();
+    stageGallery.position.set(0, -29.0, -2.5);
+
+    // 1. Centerpiece: Giant Prismatic Holographic Icosahedron
+    const crystalGroup = new THREE.Group();
+    crystalGroup.position.set(0, 0, -2.0);
+
+    const crystalCore = new THREE.Mesh(new THREE.IcosahedronGeometry(2.8, 0), bgMatAccent);
+    crystalGroup.add(crystalCore);
+
+    const crystalWire = new THREE.Mesh(new THREE.IcosahedronGeometry(3.15, 0), bgMatWireframe);
+    crystalGroup.add(crystalWire);
+    stageGallery.add(crystalGroup);
+
+    // 2. 8 Floating 3D Artwork Category Palette Swatches in Orbit
+    const paletteDiscs = [];
+    for (let p = 0; p < 8; p++) {
+      const pAngle = (p * Math.PI * 2) / 8;
+      const pRadius = 6.8;
+      const pMesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.7, 0.7, 0.08, 6), // Hexagonal swatch disc
+        p % 2 === 0 ? bgMatPrimary : (p % 3 === 0 ? bgMatGold : bgMatChrome)
+      );
+      pMesh.position.set(Math.cos(pAngle) * pRadius, Math.sin(pAngle) * (pRadius * 0.45), Math.sin(pAngle) * 2.0);
+      pMesh.rotation.set(0.3, pAngle, 0.2);
+      stageGallery.add(pMesh);
+      paletteDiscs.push(pMesh);
+    }
+
+    universeGroup.add(stageGallery);
+    bgStages.push({
+      group: stageGallery,
+      targetY: -29.0,
+      name: 'Creative Gallery Stage',
+      rotX: 0.01,
+      rotY: 0.012,
+      rotZ: 0.008,
+      subMeshes: [crystalGroup, crystalCore, crystalWire, ...paletteDiscs]
+    });
+
+    // ==========================================================================
+    // STAGE 04: CREATIVE SERVICES (Y = -39.0)
+    // Theme: 7 Creative Services, Multi-Axis Gyroscopic Gimbal & Orbital Gemstones
+    // ==========================================================================
+    const stageServices = new THREE.Group();
+    stageServices.position.set(0, -39.0, -2.5);
+
+    // 1. Triple Nesting Gyroscopic Gimbal Rings
+    const sGimbalGroup = new THREE.Group();
+    sGimbalGroup.position.set(6.8, 0.5, -2.0);
+
+    const sRingOuter = new THREE.Mesh(new THREE.TorusGeometry(3.5, 0.1, 16, 64), bgMatGold);
+    sGimbalGroup.add(sRingOuter);
+
+    const sRingMid = new THREE.Mesh(new THREE.TorusGeometry(2.6, 0.08, 16, 64), bgMatPrimary);
+    sRingMid.rotation.x = Math.PI / 3;
+    sGimbalGroup.add(sRingMid);
+
+    const sRingInner = new THREE.Mesh(new THREE.TorusGeometry(1.8, 0.07, 16, 48), bgMatAccent);
+    sRingInner.rotation.y = Math.PI / 2.4;
+    sGimbalGroup.add(sRingInner);
+
+    const sCenterCore = new THREE.Mesh(new THREE.OctahedronGeometry(0.75, 0), bgMatChrome);
+    sGimbalGroup.add(sCenterCore);
+    stageServices.add(sGimbalGroup);
+
+    // 2. 7 Orbital Satellite Nodes (Representing the 7 Services) on the Left
+    const satellitesGroup = new THREE.Group();
+    satellitesGroup.position.set(-6.8, 0.5, -2.0);
+
+    const satCenter = new THREE.Mesh(new THREE.SphereGeometry(1.2, 32, 32), bgMatChrome);
+    satellitesGroup.add(satCenter);
+
+    const satHalo = new THREE.Mesh(new THREE.TorusGeometry(2.8, 0.06, 16, 64), bgMatPrimary);
+    satHalo.rotation.x = Math.PI / 2.2;
+    satellitesGroup.add(satHalo);
+
+    const satNodes = [];
+    for (let s = 0; s < 7; s++) {
+      const sAngle = (s * Math.PI * 2) / 7;
+      const node = new THREE.Mesh(
+        new THREE.OctahedronGeometry(0.4, 0),
+        s % 2 === 0 ? bgMatAccent : bgMatGold
+      );
+      node.position.set(Math.cos(sAngle) * 2.8, Math.sin(sAngle) * 1.2, Math.sin(sAngle) * 1.5);
+      satellitesGroup.add(node);
+      satNodes.push(node);
+    }
+    stageServices.add(satellitesGroup);
+
+    universeGroup.add(stageServices);
+    bgStages.push({
+      group: stageServices,
+      targetY: -39.0,
+      name: 'Creative Services Stage',
+      rotX: 0.009,
+      rotY: 0.015,
+      rotZ: 0.006,
+      subMeshes: [sGimbalGroup, sRingOuter, sRingMid, sRingInner, sCenterCore, satellitesGroup, ...satNodes]
+    });
+
+    // ==========================================================================
+    // STAGE 05: SKILLS & CREATIVE TOOLS (Y = -49.0)
+    // Theme: 3D Digital Stylus Pen, Precision Bezier Vectors & 6 Software Prisms
+    // ==========================================================================
+    const stageSkills = new THREE.Group();
+    stageSkills.position.set(0, -49.0, -2.5);
+
+    // 1. Massive 3D Digital Stylus Pen (Right)
+    const penGroup = new THREE.Group();
+    penGroup.position.set(7.0, 0.5, -2.0);
+    penGroup.rotation.set(-0.35, -0.4, 0.5);
+
+    const penBody = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.1, 4.4, 20), bgMatDarkBezel);
+    penGroup.add(penBody);
+
+    const penNib = new THREE.Mesh(new THREE.ConeGeometry(0.16, 0.75, 20), bgMatGold);
+    penNib.position.y = 2.55;
+    penGroup.add(penNib);
+
+    const penRing = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.04, 12, 24), bgMatAccent);
+    penRing.position.y = 1.3;
+    penRing.rotation.x = Math.PI / 2;
+    penGroup.add(penRing);
+
+    // Bezier tangent crossbar
+    const handleBar = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 2.8, 12), bgMatWireframe);
+    handleBar.position.set(0, 2.55, 0);
+    handleBar.rotation.z = Math.PI / 2;
+    penGroup.add(handleBar);
+
+    const handleNode1 = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 16), bgMatPrimary);
+    handleNode1.position.set(1.4, 2.55, 0);
+    penGroup.add(handleNode1);
+
+    const handleNode2 = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 16), bgMatAccent);
+    handleNode2.position.set(-1.4, 2.55, 0);
+    penGroup.add(handleNode2);
+
+    stageSkills.add(penGroup);
+
+    // 2. 6 Floating 3D Software Prisms / Tablets (Left)
+    const softwareGroup = new THREE.Group();
+    softwareGroup.position.set(-7.0, 0.5, -2.0);
+
+    const softNames = ['AE', 'PR', 'PS', 'AI', '3D', 'FIGMA'];
+    const softPrisms = [];
+
+    softNames.forEach((name, idx) => {
+      const tex = createMonolithTexture(name, 'TOOLKIT');
+      const prism = new THREE.Mesh(
+        new THREE.BoxGeometry(1.6, 1.6, 0.35),
+        [
+          bgMatDarkBezel, bgMatDarkBezel, bgMatDarkBezel, bgMatDarkBezel,
+          new THREE.MeshBasicMaterial({ map: tex }), bgMatDarkBezel
+        ]
+      );
+      const col = idx % 2;
+      const row = Math.floor(idx / 2);
+      prism.position.set((col - 0.5) * 2.5, (1 - row) * 2.2, (idx % 2 === 0 ? 0.4 : -0.4));
+      prism.rotation.set((idx % 2 === 0 ? 0.15 : -0.15), (idx % 2 === 0 ? 0.25 : -0.25), 0);
+      softwareGroup.add(prism);
+      softPrisms.push(prism);
+    });
+
+    stageSkills.add(softwareGroup);
+
+    universeGroup.add(stageSkills);
+    bgStages.push({
+      group: stageSkills,
+      targetY: -49.0,
+      name: 'Skills & Toolkit Stage',
+      rotX: 0.012,
+      rotY: 0.01,
+      rotZ: 0.007,
+      subMeshes: [penGroup, penBody, penNib, softwareGroup, ...softPrisms]
+    });
+
+    // ==========================================================================
+    // STAGE 06: CAREER EXPERIENCE & HONORS (Y = -59.0)
+    // Theme: 11+ Years DNA Timeline & The Golden Innovator Award Trophy Star
+    // ==========================================================================
+    const stageExp = new THREE.Group();
+    stageExp.position.set(0, -59.0, -2.5);
+
+    // 1. The Golden 3D Innovator Award Star Trophy Sculpture (Right)
+    const trophyGroup = new THREE.Group();
+    trophyGroup.position.set(7.2, 0.5, -2.0);
+
+    const trophyStar = new THREE.Mesh(new THREE.OctahedronGeometry(2.0, 0), bgMatGold);
+    trophyGroup.add(trophyStar);
+
+    const trophyHalo1 = new THREE.Mesh(new THREE.TorusGeometry(3.0, 0.08, 16, 64), bgMatPrimary);
+    trophyHalo1.rotation.x = Math.PI / 2.3;
+    trophyGroup.add(trophyHalo1);
+
+    const trophyHalo2 = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.06, 16, 48), bgMatAccent);
+    trophyHalo2.rotation.y = Math.PI / 2.6;
+    trophyGroup.add(trophyHalo2);
+    stageExp.add(trophyGroup);
+
+    // 2. Ascending 3D Career Timeline Double Helix Spiral (Left)
+    const helixGroup = new THREE.Group();
+    helixGroup.position.set(-7.2, 0.5, -2.0);
+
+    const helixPoints1 = [];
+    const helixPoints2 = [];
+    for (let h = 0; h <= 40; h++) {
+      const hAngle = h * 0.35;
+      const hY = (h - 20) * 0.28;
+      helixPoints1.push(new THREE.Vector3(Math.cos(hAngle) * 1.5, hY, Math.sin(hAngle) * 1.5));
+      helixPoints2.push(new THREE.Vector3(Math.cos(hAngle + Math.PI) * 1.5, hY, Math.sin(hAngle + Math.PI) * 1.5));
+
+      // Milestone connector rungs
+      if (h % 5 === 0) {
+        const rungCurve = new THREE.LineCurve3(
+          new THREE.Vector3(Math.cos(hAngle) * 1.5, hY, Math.sin(hAngle) * 1.5),
+          new THREE.Vector3(Math.cos(hAngle + Math.PI) * 1.5, hY, Math.sin(hAngle + Math.PI) * 1.5)
+        );
+        const rungMesh = new THREE.Mesh(new THREE.TubeGeometry(rungCurve, 8, 0.05, 8, false), bgMatGold);
+        helixGroup.add(rungMesh);
+      }
+    }
+
+    const strand1 = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(helixPoints1), 60, 0.08, 12, false), bgMatPrimary);
+    const strand2 = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(helixPoints2), 60, 0.08, 12, false), bgMatAccent);
+    helixGroup.add(strand1);
+    helixGroup.add(strand2);
+    stageExp.add(helixGroup);
+
+    universeGroup.add(stageExp);
+    bgStages.push({
+      group: stageExp,
+      targetY: -59.0,
+      name: 'Experience & Honors Stage',
+      rotX: 0.008,
+      rotY: 0.016,
+      rotZ: 0.005,
+      subMeshes: [trophyGroup, trophyStar, trophyHalo1, trophyHalo2, helixGroup]
+    });
+
+    // ==========================================================================
+    // STAGE 07: CONTACT & COLLABORATION (Y = -69.0)
+    // Theme: 3D Holographic Global Connection Sphere & Concentric Signal Waves
+    // ==========================================================================
+    const stageContact = new THREE.Group();
+    stageContact.position.set(0, -69.0, -2.5);
+
+    // 1. Holographic Global Connection Sphere (Center)
+    const contactSphereGroup = new THREE.Group();
+    contactSphereGroup.position.set(0, 0.5, -2.0);
+
+    const cGlobe = new THREE.Mesh(new THREE.SphereGeometry(2.6, 32, 32), bgMatChrome);
+    contactSphereGroup.add(cGlobe);
+
+    const cWire = new THREE.Mesh(new THREE.SphereGeometry(2.72, 16, 16), bgMatWireframe);
+    contactSphereGroup.add(cWire);
+
+    // Concentric signal pulse rings
+    const pulseRings = [];
+    for (let r = 0; r < 3; r++) {
+      const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(3.6 + r * 1.2, 0.05, 16, 64),
+        r === 0 ? bgMatAccent : (r === 1 ? bgMatPrimary : bgMatGold)
+      );
+      ring.rotation.x = Math.PI / (2.2 + r * 0.2);
+      contactSphereGroup.add(ring);
+      pulseRings.push(ring);
+    }
+    stageContact.add(contactSphereGroup);
+
+    universeGroup.add(stageContact);
+    bgStages.push({
+      group: stageContact,
+      targetY: -69.0,
+      name: 'Contact Stage',
+      rotX: 0.006,
+      rotY: 0.014,
+      rotZ: 0.008,
+      subMeshes: [contactSphereGroup, cGlobe, cWire, ...pulseRings]
     });
 
     // --------------------------------------------------------------------------
-    // 5. SCROLL & MOUSE MOMENTUM LISTENER
+    // 5. SCROLL STATE & DYNAMIC RESIZE TRACKER
     // --------------------------------------------------------------------------
     function updateMaxScroll() {
       scrollState.maxScroll = Math.max(
@@ -1075,7 +1487,7 @@
     }, { passive: true });
 
     // --------------------------------------------------------------------------
-    // 6. ANIMATION & PARALLAX RENDER LOOP
+    // 6. ANIMATION & SCROLL-TRANSFORMATIVE CINEMATIC RENDER LOOP
     // --------------------------------------------------------------------------
     function animateUniverse(time) {
       requestAnimationFrame(animateUniverse);
@@ -1084,15 +1496,20 @@
 
       // Smooth scroll interpolation (damping physics)
       const prevScroll = scrollState.current;
-      scrollState.current += (scrollState.target - scrollState.current) * 0.065;
+      scrollState.current += (scrollState.target - scrollState.current) * 0.055;
       scrollState.velocity = (scrollState.current - prevScroll);
 
       const scrollFraction = scrollState.current / scrollState.maxScroll;
 
-      // Travel Camera through the 3D Motion Universe as page scrolls
-      bgCamera.position.y = -scrollFraction * 28.0;
-      bgCamera.position.x = Math.sin(scrollFraction * Math.PI * 2) * 1.8 + (mouse.x * 0.8);
-      bgCamera.position.z = 16.0 + Math.cos(scrollFraction * Math.PI * 3) * 1.5;
+      // Glide Camera through the 7 distinct 3D cinematic stages (Y = 0 to -69.0)
+      const targetCamY = -scrollFraction * 69.0;
+      bgCamera.position.y += (targetCamY - bgCamera.position.y) * 0.07;
+
+      // Subtle cinematic S-curve sweep on X and Z
+      bgCamera.position.x = Math.sin(scrollFraction * Math.PI * 4) * 1.8 + (mouse.x * 0.9);
+
+      const baseZ = window.innerWidth < 480 ? 22.0 : (window.innerWidth < 768 ? 19.0 : 16.0);
+      bgCamera.position.z = baseZ + Math.cos(scrollFraction * Math.PI * 6) * 1.2;
 
       // Mouse Parallax on Scene
       bgScene.rotation.y = mouse.x * 0.08;
@@ -1100,29 +1517,48 @@
 
       // Animate background starfield
       if (bgStars && !prefersReducedMotion) {
-        bgStars.rotation.y = -seconds * 0.02;
-        bgStars.rotation.x = -seconds * 0.01 + (scrollFraction * 0.4);
+        bgStars.rotation.y = -seconds * 0.018;
+        bgStars.rotation.x = -seconds * 0.008 + (scrollFraction * 0.4);
       }
 
-      // Animate 3D Sculptures with Scroll Momentum
+      // Dynamic Section Highlighting & Kinetic Momentum
       const scrollBoost = Math.abs(scrollState.velocity) * 0.08;
 
-      bgSculptures.forEach((item, i) => {
-        // Floating sinusoidal bobbing
-        const floatY = Math.sin(seconds * item.speed + i) * item.amplitude;
-        item.mesh.position.y = item.baseY + floatY;
+      bgStages.forEach((stage, i) => {
+        // Distance between camera Y and this stage's center
+        const dist = Math.abs(bgCamera.position.y - stage.targetY);
+        const isActive = dist < 7.5;
+        const proximity = Math.max(0, 1 - (dist / 12.0)); // 1 when centered, 0 when far
 
-        // Dynamic rotation accelerated by scroll velocity
-        item.mesh.rotation.x += item.rotX + (scrollBoost * item.scrollMultiplier * 4);
-        item.mesh.rotation.y += item.rotY + (scrollBoost * item.scrollMultiplier * 6);
-        item.mesh.rotation.z += item.rotZ + (scrollBoost * item.scrollMultiplier * 3);
+        // Dynamic scale and kinetic acceleration when active
+        const targetScale = 0.85 + proximity * 0.15;
+        stage.group.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.08);
 
-        // Nested gimbal counter-rotation if present
-        if (item.subRings) {
-          item.subRings[0].rotation.z += 0.015 + scrollBoost * 0.02;
-          item.subRings[1].rotation.x -= 0.012 + scrollBoost * 0.02;
-          item.subRings[2].rotation.y += 0.018 + scrollBoost * 0.02;
-          item.subRings[3].rotation.y += 0.025;
+        // Sinusoidal floating
+        const floatY = Math.sin(seconds * 1.3 + i) * 0.25;
+        stage.group.position.y = stage.targetY + floatY;
+
+        // Rotation acceleration on active section
+        const activeSpeedMult = 1.0 + (proximity * 1.8) + (scrollBoost * 3.0);
+        stage.group.rotation.x += stage.rotX * activeSpeedMult;
+        stage.group.rotation.y += stage.rotY * activeSpeedMult;
+        stage.group.rotation.z += stage.rotZ * activeSpeedMult;
+
+        // Specific nested object counter-rotations
+        if (i === 1) { // Work stage: rotate reel spokes & lens
+          if (stage.subMeshes[0]) stage.subMeshes[0].rotation.z += 0.02 * activeSpeedMult;
+          if (stage.subMeshes[1]) stage.subMeshes[1].rotation.z -= 0.015 * activeSpeedMult;
+        } else if (i === 3) { // Services stage: gimbal nested counter-rotations
+          if (stage.subMeshes[1]) stage.subMeshes[1].rotation.z += 0.02;
+          if (stage.subMeshes[2]) stage.subMeshes[2].rotation.x -= 0.018;
+          if (stage.subMeshes[3]) stage.subMeshes[3].rotation.y += 0.022;
+        } else if (i === 5) { // Experience stage: trophy star spin & helix spin
+          if (stage.subMeshes[1]) stage.subMeshes[1].rotation.y += 0.025 * activeSpeedMult;
+          if (stage.subMeshes[4]) stage.subMeshes[4].rotation.y -= 0.015;
+        } else if (i === 6) { // Contact stage: pulse rings expanding
+          if (stage.subMeshes[1]) stage.subMeshes[1].rotation.y += 0.018;
+          if (stage.subMeshes[3]) stage.subMeshes[3].rotation.z += 0.02;
+          if (stage.subMeshes[4]) stage.subMeshes[4].rotation.z -= 0.015;
         }
       });
 
@@ -1130,12 +1566,30 @@
     }
     requestAnimationFrame(animateUniverse);
 
-    window.addEventListener('resize', () => {
+    function onBgResize() {
       if (!bgCamera || !bgRenderer) return;
-      bgCamera.aspect = window.innerWidth / window.innerHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      bgCamera.aspect = w / h;
+      if (w < 480) {
+        bgCamera.fov = 68;
+        bgCamera.position.z = 22.0;
+      } else if (w < 768) {
+        bgCamera.fov = 62;
+        bgCamera.position.z = 19.0;
+      } else if (w < 992) {
+        bgCamera.fov = 58;
+        bgCamera.position.z = 17.5;
+      } else {
+        bgCamera.fov = 55;
+        bgCamera.position.z = 16.0;
+      }
       bgCamera.updateProjectionMatrix();
-      bgRenderer.setSize(window.innerWidth, window.innerHeight);
-    });
+      bgRenderer.setSize(w, h);
+    }
+
+    window.addEventListener('resize', onBgResize);
+    onBgResize();
   }
 
   // Dynamic 3D lighting & starfield theme adapter (Dark / Light)
@@ -1269,12 +1723,151 @@
         bgStars.material.opacity = 0.85;
       }
     }
+
+    // Update About Energy Canvas theme
+    aboutTheme = theme;
   };
+
+  /**
+   * ==============================================================================
+   * PROCEDURAL 3D COSMIC ENERGY PARTICLE VORTEX CANVAS (ABOUT SECTION)
+   * Replacing video with pure interactive procedural canvas animation
+   * ==============================================================================
+   */
+  let aboutCanvas, aboutCtx;
+  let aboutParticles = [];
+  let aboutAnimFrameId;
+  let isAboutVisible = true;
+  let aboutTheme = 'dark';
+
+  function initAboutEnergyCanvas() {
+    aboutCanvas = document.getElementById('about-energy-canvas');
+    if (!aboutCanvas) return;
+    aboutCtx = aboutCanvas.getContext('2d');
+    if (!aboutCtx) return;
+
+    function resizeAboutCanvas() {
+      const parent = aboutCanvas.parentElement;
+      if (!parent) return;
+      aboutCanvas.width = parent.clientWidth || 900;
+      aboutCanvas.height = parent.clientHeight || 700;
+    }
+
+    resizeAboutCanvas();
+    window.addEventListener('resize', resizeAboutCanvas);
+
+    // Create 700 orbiting energy particles
+    const particleCount = 700;
+    aboutParticles = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 30 + Math.pow(Math.random(), 1.6) * 340;
+      const speed = (0.003 + (1 / (radius + 20)) * 1.6) * (Math.random() > 0.15 ? 1 : -0.7);
+      const size = Math.random() * 2.2 + 0.8;
+      const ringTilt = (Math.random() - 0.5) * 0.4;
+      const colorSeed = Math.random();
+
+      aboutParticles.push({
+        angle: angle,
+        radius: radius,
+        baseRadius: radius,
+        speed: speed,
+        size: size,
+        ringTilt: ringTilt,
+        colorSeed: colorSeed,
+        alpha: Math.random() * 0.7 + 0.3
+      });
+    }
+
+    // Observer to only animate when in view
+    const aboutSection = document.getElementById('about');
+    if (aboutSection && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          isAboutVisible = e.isIntersecting;
+        });
+      }, { threshold: 0.05 });
+      observer.observe(aboutSection);
+    }
+
+    function renderAbout(time) {
+      aboutAnimFrameId = requestAnimationFrame(renderAbout);
+      if (!isAboutVisible) return;
+
+      const w = aboutCanvas.width;
+      const h = aboutCanvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      aboutCtx.clearRect(0, 0, w, h);
+
+      // Core glowing energy gradient
+      const coreGrad = aboutCtx.createRadialGradient(cx, cy, 0, cx, cy, 320);
+      if (aboutTheme === 'light') {
+        coreGrad.addColorStop(0, 'rgba(192, 132, 87, 0.22)');
+        coreGrad.addColorStop(0.35, 'rgba(139, 94, 60, 0.12)');
+        coreGrad.addColorStop(0.7, 'rgba(232, 193, 148, 0.04)');
+        coreGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      } else {
+        coreGrad.addColorStop(0, 'rgba(194, 164, 255, 0.32)');
+        coreGrad.addColorStop(0.3, 'rgba(84, 0, 255, 0.22)');
+        coreGrad.addColorStop(0.65, 'rgba(251, 141, 255, 0.08)');
+        coreGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      }
+
+      aboutCtx.fillStyle = coreGrad;
+      aboutCtx.beginPath();
+      aboutCtx.arc(cx, cy, 320, 0, Math.PI * 2);
+      aboutCtx.fill();
+
+      // Mouse influence on vortex center & tilt
+      const mouseTiltX = mouse.x * 35;
+      const mouseTiltY = mouse.y * 25;
+
+      const t = time * 0.001;
+
+      // Draw all cosmic energy particles
+      for (let i = 0; i < aboutParticles.length; i++) {
+        const p = aboutParticles[i];
+        p.angle += p.speed;
+
+        // Elliptical 3D orbit with perspective tilt
+        const currentRadius = p.baseRadius + Math.sin(t * 1.5 + i) * 6;
+        const x = cx + mouseTiltX + Math.cos(p.angle) * currentRadius;
+        const y = cy + mouseTiltY + Math.sin(p.angle) * (currentRadius * 0.42) + Math.sin(p.angle + p.ringTilt) * 20;
+
+        // Depth perspective scale & alpha
+        const depth = (Math.sin(p.angle) + 1) / 2; // 0 (back) to 1 (front)
+        const renderSize = p.size * (0.6 + depth * 0.7);
+        const renderAlpha = p.alpha * (0.35 + depth * 0.65);
+
+        let particleColor;
+        if (aboutTheme === 'light') {
+          if (p.colorSeed > 0.6) particleColor = `rgba(139, 94, 60, ${renderAlpha})`;
+          else if (p.colorSeed > 0.25) particleColor = `rgba(192, 132, 87, ${renderAlpha})`;
+          else particleColor = `rgba(232, 193, 148, ${renderAlpha})`;
+        } else {
+          if (p.colorSeed > 0.65) particleColor = `rgba(251, 141, 255, ${renderAlpha})`; // Magenta
+          else if (p.colorSeed > 0.3) particleColor = `rgba(194, 164, 255, ${renderAlpha})`; // Lilac
+          else particleColor = `rgba(255, 255, 255, ${renderAlpha})`; // White starlight
+        }
+
+        aboutCtx.fillStyle = particleColor;
+        aboutCtx.beginPath();
+        aboutCtx.arc(x, y, renderSize, 0, Math.PI * 2);
+        aboutCtx.fill();
+      }
+    }
+
+    renderAbout(0);
+  }
 
   // Initialize once DOM is ready
   function startAll() {
     initScene();
     initBackgroundUniverse();
+    initAboutEnergyCanvas();
 
     // Check if initial theme is light
     const currentTheme = document.body.getAttribute('data-theme');

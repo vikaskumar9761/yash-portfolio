@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function initDirectionalScrollAnimations() {
     // 1. Hero Section: Left column from left, Right 3D stage from right
     const heroLeft = document.querySelector('.hero-section .hero-content-wrapper');
-    const heroRight = document.querySelector('.hero-section .hero-stage-container');
+    const heroRight = document.querySelector('.hero-section .hero-portrait-stage-card') || document.querySelector('.hero-section .hero-stage-container');
     if (heroLeft) heroLeft.classList.add('reveal-left');
     if (heroRight) heroRight.classList.add('reveal-right');
 

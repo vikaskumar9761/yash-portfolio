@@ -118,14 +118,22 @@
          ============================================================================ -->
     <section class="hero-section" id="hero">
       
-      <!-- Rotating Blackhole Cosmic Energy Video (Direct spaceportfolio.netlify.app video) -->
-      <div class="hero-blackhole-wrap" aria-hidden="true">
-        <video class="hero-blackhole-video" autoplay loop muted playsinline>
-          <source src="assets/videos/blackhole.webm" type="video/webm">
-        </video>
+      <!-- Interactive 3D Motion Graphics Canvas Background Stage (Replacing Blackhole Video in Hero) -->
+      <div class="hero-canvas-bg-wrap" id="hero-3d-stage" aria-label="Interactive 3D Motion Graphics Studio">
+        <!-- Glowing Backlight Orbs -->
+        <div class="landing-circle1" aria-hidden="true"></div>
+        <div class="character-rim" aria-hidden="true"></div>
+
+        <!-- 3D Interactive Canvas -->
+        <canvas id="hero-3d-canvas" aria-label="Interactive 3D Motion Graphics Canvas"></canvas>
+
+        <!-- Floating 360° Interaction Badge -->
+        <div class="stage-instruction-badge">
+          <i class="bi bi-arrow-repeat"></i> Move Cursor or Drag to Rotate 360°
+        </div>
       </div>
 
-      <div class="container-xl position-relative" style="z-index: 2;">
+      <div class="container-xl position-relative hero-main-container" style="z-index: 2;">
         <div class="row align-items-center g-5">
           
           <!-- Column Left: Editorial Hero Details -->
@@ -201,27 +209,36 @@
             </div>
           </div>
 
-          <!-- Column Right: Three.js 3D Creative Workspace Stage & Portrait Preview -->
+          <!-- Column Right: Hero Portrait & Creative Credentials Card -->
           <div class="col-lg-6 order-1 order-lg-2 reveal-right">
-            <div class="hero-stage-container" id="hero-3d-stage">
-              <!-- Redoyanul Haque Signature Glowing Backlight Orbs -->
-              <div class="landing-circle1" aria-hidden="true"></div>
-              <div class="character-rim" aria-hidden="true"></div>
-
-              <!-- Three.js Canvas -->
-              <canvas id="hero-3d-canvas" aria-label="Interactive 3D Motion Graphics Canvas"></canvas>
-
-              <!-- Floating Instruction Badge -->
-              <div class="stage-instruction-badge">
-                <i class="bi bi-hand-index-thumb"></i> Move cursor to interact
+            <div class="hero-portrait-stage-card">
+              <div class="hero-portrait-frame">
+                <img src="assets/images/yashveer-portrait.jpg" alt="Portrait of Yashveer Singh Prajapati" class="hero-portrait-main-img">
+                <div class="hero-portrait-overlay">
+                  <span class="hero-portrait-tag"><i class="bi bi-patch-check-fill"></i> Verified Creator</span>
+                </div>
               </div>
-
-              <!-- Portrait Inset Card -->
-              <div class="hero-portrait-card">
-                <img src="assets/images/yashveer-portrait.jpg" alt="Portrait of Yashveer Singh Prajapati" class="hero-portrait-thumb">
-                <div class="hero-portrait-info">
-                  <h4>Yashveer Singh</h4>
-                  <p>Motion & Visual Designer</p>
+              <div class="hero-portrait-meta">
+                <div class="hero-portrait-head">
+                  <h3>Yashveer Singh</h3>
+                  <span class="hero-portrait-role">Motion Graphics & Visual Designer</span>
+                </div>
+                <p class="hero-portrait-desc">
+                  Crafting high-impact motion reels, kinetic typography & visual brand experiences.
+                </p>
+                <div class="hero-portrait-stats">
+                  <div class="stat-pill">
+                    <span class="stat-num">11+</span>
+                    <span class="stat-label">Years Exp.</span>
+                  </div>
+                  <div class="stat-pill">
+                    <span class="stat-num">250+</span>
+                    <span class="stat-label">Projects</span>
+                  </div>
+                  <div class="stat-pill">
+                    <span class="stat-num">100%</span>
+                    <span class="stat-label">Creative</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -240,8 +257,14 @@
     <!-- ============================================================================
          SECTION 02 — ABOUT ME
          ============================================================================ -->
-    <section class="section-padding" id="about">
-      <div class="container-xl">
+    <section class="section-padding position-relative overflow-hidden" id="about">
+      
+      <!-- Procedural 3D Cosmic Energy Particle Canvas Backdrop (Replaces Video) -->
+      <div class="about-canvas-bg-wrap" id="about-canvas-wrap" aria-hidden="true">
+        <canvas id="about-energy-canvas" aria-label="Cosmic Energy Particle Canvas"></canvas>
+      </div>
+
+      <div class="container-xl position-relative" style="z-index: 2;">
         <div class="row g-5 align-items-center">
           
           <!-- Column Left: Professional Portrait Frame -->
@@ -843,11 +866,10 @@
          ============================================================================ -->
     <section class="section-padding position-relative overflow-hidden" id="skills">
       
-      <!-- Cosmic Skills Nebula Video Background (spaceportfolio.netlify.app reference) -->
-      <div class="skills-video-wrap" aria-hidden="true">
-        <video class="skills-video-el" autoplay loop muted playsinline>
-          <source src="assets/videos/skills-bg.webm" type="video/webm">
-        </video>
+      <!-- Cosmic Glowing Ambient Canvas Backdrop -->
+      <div class="skills-glow-wrap" aria-hidden="true">
+        <div class="skills-glow-orb orb-left"></div>
+        <div class="skills-glow-orb orb-right"></div>
       </div>
 
       <div class="container-xl position-relative" style="z-index: 2;">
@@ -1159,11 +1181,9 @@
          ============================================================================ -->
     <section class="section-padding position-relative overflow-hidden" id="process" style="background-color: var(--bg-secondary);">
       
-      <!-- Cosmic Energy Video Background (spaceportfolio.netlify.app reference) -->
-      <div class="skills-video-wrap" aria-hidden="true" style="opacity: 0.22;">
-        <video class="skills-video-el" autoplay loop muted playsinline>
-          <source src="assets/videos/encryption-bg.webm" type="video/webm">
-        </video>
+      <!-- Process Glowing Ambient Canvas Backdrop -->
+      <div class="process-glow-wrap" aria-hidden="true">
+        <div class="process-glow-orb"></div>
       </div>
 
       <div class="container-xl position-relative" style="z-index: 2;">
