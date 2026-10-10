@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yashveer Singh Prajapati — Motion Graphics Designer & Visual Storyteller</title>
+  <meta name="description" content="Portfolio of Yashveer Singh Prajapati — Motion Graphics Designer, Graphic Designer, Video Editor, and Visual Storyteller based in South East Delhi, India. 11+ years of creative expertise.">
+  <meta name="keywords" content="Yashveer Singh Prajapati, Motion Graphics Designer, Video Editor, Graphic Designer, Delhi, Brand Films, Social Ads, 3D Motion, After Effects, Three.js Portfolio">
+  <meta name="author" content="Yashveer Singh Prajapati">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Yashveer Singh Prajapati — Motion Graphics Designer & Visual Storyteller">
+  <meta property="og:description" content="Turning ideas into visual experiences. 11+ years in motion graphics, brand films, video editing, and visual storytelling.">
+  <meta property="og:image" content="assets/images/yashveer-portrait.jpg">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Yashveer Singh Prajapati — 3D & Motion Graphics Designer">
+  <meta name="twitter:description" content="Editorial 3D graphic design & motion graphics portfolio.">
+  <meta name="twitter:image" content="assets/images/yashveer-portrait.jpg">
+
+  <!-- Favicon (Inline SVG Data URI) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%238B5E3C'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='18' fill='%23FAF7F2'%3EY%3C/text%3E%3C/svg%3E">
+
+  <!-- MANDATORY GOOGLE FONT: ROBOTO ONLY (Weights 300, 400, 500, 700, 900) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="dark">
+
+  <!-- Fullscreen 3D Starfield Background Canvas (spaceportfolio.netlify.app reference) -->
+  <div class="space-background-container" id="space-bg-container" aria-hidden="true">
+    <canvas id="space-stars-canvas"></canvas>
+  </div>
+
+  <!-- Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Custom Cursor Elements (Desktop Only) -->
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+  <div class="custom-cursor-follower" id="custom-cursor-follower" aria-hidden="true"></div>
+
+  <!-- ==============================================================================
+       NAVBAR (Sticky Header)
+       ============================================================================== -->
+  <header class="site-header" id="main-navbar">
+    <div class="container-xl">
+      <nav class="navbar navbar-expand-lg py-3" aria-label="Main navigation">
+        <a class="brand-wordmark" href="#hero">
+          <span>YASHVEER</span>
+          <span class="accent-slash">/</span>
+          <span class="role-tag">DESIGNER</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 my-3 my-lg-0">
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#hero">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#featured-work">Work</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#gallery">Archive</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#skills">Skills</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#experience">Experience</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-editorial" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-1">
+              <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle visual theme (Dark / Light)">
+                <i class="bi bi-moon-stars-fill" id="themeToggleIcon"></i> <span id="themeToggleText">Dark</span>
+              </button>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="btn-editorial-primary nav-hire-btn" href="#contact">
+                <i class="bi bi-send-fill"></i> Hire Me
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main id="main-content">
+
+    <!-- ============================================================================
+         SECTION 01 — HERO / COVER SECTION
+         ============================================================================ -->
+    <section class="hero-section" id="hero">
+      
+      <!-- Rotating Blackhole Cosmic Energy Video (Direct spaceportfolio.netlify.app video) -->
+      <div class="hero-blackhole-wrap" aria-hidden="true">
+        <video class="hero-blackhole-video" autoplay loop muted playsinline>
+          <source src="assets/videos/blackhole.webm" type="video/webm">
+        </video>
+      </div>
+
+      <div class="container-xl position-relative" style="z-index: 2;">
+        <div class="row align-items-center g-5">
+          
+          <!-- Column Left: Editorial Hero Details -->
+          <div class="col-lg-6 order-2 order-lg-1 reveal-left">
+            <div class="hero-content-wrapper">
+              
+              <!-- Availability Indicator -->
+              <div class="hero-availability">
+                <span class="pulse-dot"></span>
+                <span>Open to freelance projects, collaborations & full-time roles</span>
+              </div>
+
+              <h1 class="display-title mb-2">
+                Yashveer Singh <span class="highlight-accent">Prajapati</span>
+              </h1>
+
+              <!-- Professional Title & Dynamic Typewriter -->
+              <div class="hero-title-badge" aria-label="Motion Graphics Designer specializing in Motion Graphics, Branding, Social Media, Posters, Video Editing, Animation, Digital Art">
+                <span class="hero-badge-pill">
+                  <i class="bi bi-camera-reels-fill"></i> Motion Graphics Designer
+                </span>
+                <span class="hero-typewriter-wrapper">
+                  <span class="typewriter-lead">Specializing in</span>
+                  <span class="hero-typewriter-text" id="heroTypewriter">Motion Graphics</span><span class="hero-typewriter-cursor" aria-hidden="true"></span>
+                </span>
+              </div>
+
+              <!-- Supporting Introduction -->
+              <p class="hero-bio-lead">
+                I create engaging motion graphics, videos, and visual designs that help brands tell their stories and connect with audiences.
+              </p>
+
+              <!-- Location & Highlights -->
+              <div class="d-flex flex-wrap gap-4 mb-4">
+                <div class="hero-meta-item">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>South East Delhi, Delhi, India</span>
+                </div>
+                <div class="hero-meta-item">
+                  <i class="bi bi-award-fill"></i>
+                  <span>The Innovator Award Winner</span>
+                </div>
+                <div class="hero-meta-item">
+                  <i class="bi bi-clock-history"></i>
+                  <span>11+ Years Experience</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex flex-wrap gap-3">
+                <a href="#featured-work" class="btn-editorial-primary">
+                  <i class="bi bi-arrow-down-right-circle-fill"></i> Explore My Work
+                </a>
+                <a href="#contact" class="btn-editorial-outline">
+                  <i class="bi bi-chat-quote-fill"></i> Hire Me
+                </a>
+                <a href="https://www.behance.net/yashveerk227b0" target="_blank" rel="noopener noreferrer" class="btn-editorial-accent">
+                  <i class="bi bi-behance"></i> View Behance
+                </a>
+              </div>
+
+              <!-- Floating Creative Disciplines Tags -->
+              <div class="hero-floating-tags">
+                <span class="floating-tag">Motion Graphics</span>
+                <span class="floating-tag">Branding</span>
+                <span class="floating-tag">Social Media</span>
+                <span class="floating-tag">Posters</span>
+                <span class="floating-tag">Video Editing</span>
+                <span class="floating-tag">Animation</span>
+                <span class="floating-tag">Digital Art</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Column Right: Three.js 3D Creative Workspace Stage & Portrait Preview -->
+          <div class="col-lg-6 order-1 order-lg-2 reveal-right">
+            <div class="hero-stage-container" id="hero-3d-stage">
+              <!-- Redoyanul Haque Signature Glowing Backlight Orbs -->
+              <div class="landing-circle1" aria-hidden="true"></div>
+              <div class="character-rim" aria-hidden="true"></div>
+
+              <!-- Three.js Canvas -->
+              <canvas id="hero-3d-canvas" aria-label="Interactive 3D Motion Graphics Canvas"></canvas>
+
+              <!-- Floating Instruction Badge -->
+              <div class="stage-instruction-badge">
+                <i class="bi bi-hand-index-thumb"></i> Move cursor to interact
+              </div>
+
+              <!-- Portrait Inset Card -->
+              <div class="hero-portrait-card">
+                <img src="assets/images/yashveer-portrait.jpg" alt="Portrait of Yashveer Singh Prajapati" class="hero-portrait-thumb">
+                <div class="hero-portrait-info">
+                  <h4>Yashveer Singh</h4>
+                  <p>Motion & Visual Designer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <a href="#about" class="scroll-indicator d-none d-md-flex" aria-label="Scroll to About Me section">
+        <span>Scroll</span>
+        <i class="bi bi-chevron-down"></i>
+      </a>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 02 — ABOUT ME
+         ============================================================================ -->
+    <section class="section-padding" id="about">
+      <div class="container-xl">
+        <div class="row g-5 align-items-center">
+          
+          <!-- Column Left: Professional Portrait Frame -->
+          <div class="col-lg-5">
+            <div class="about-portrait-frame reveal-left">
+              <img src="assets/images/yashveer-portrait.jpg" alt="Yashveer Singh Prajapati - Motion Graphic Designer in studio" class="about-portrait-img">
+              <div class="about-exp-badge">
+                <div class="number">11+</div>
+                <div class="label">Years of Design Craft</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column Right: Editorial Profile Information -->
+          <div class="col-lg-7">
+            <div class="reveal-right delay-1">
+              <span class="section-label">02 / ABOUT ME</span>
+              <h2 class="section-title">Turning Ideas Into Visual Experiences</h2>
+
+              <p class="lead fw-medium" style="color: var(--brand-primary); font-size: 1.15rem;">
+                Motion Graphic Designer | Video Editor | Graphic Designer
+              </p>
+
+              <p>
+                With <strong>11+ years of experience</strong>, I create engaging motion graphics, videos, and visual designs that help brands tell their stories and connect with audiences.
+              </p>
+
+              <p>
+                I specialize in <strong>motion graphics, video editing, graphic design, social media creatives, brand campaigns, and 2D animation</strong>. My creative toolkit includes <strong>After Effects, Premiere Pro, Photoshop, Illustrator, Figma, and Blender 3D</strong>.
+              </p>
+
+              <p>
+                I am passionate about turning ideas into impactful visual experiences through creativity, animation, and design. I am open to freelance projects, collaborations, and full-time opportunities.
+              </p>
+
+              <!-- 4 Highlight Cards -->
+              <div class="row g-3 mt-4">
+                <div class="col-sm-6">
+                  <div class="highlight-box reveal-left delay-1">
+                    <div class="icon-wrap">
+                      <i class="bi bi-play-circle-fill"></i>
+                    </div>
+                    <h3>Motion Graphics</h3>
+                    <p>Dynamic kinetic typography, animated identities, and seamless transitions for digital screens.</p>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="highlight-box reveal-right delay-2">
+                    <div class="icon-wrap">
+                      <i class="bi bi-camera-reels-fill"></i>
+                    </div>
+                    <h3>Visual Storytelling</h3>
+                    <p>Narrative-driven pacing, rhythmic editing, and emotional visual resonance across brand films.</p>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="highlight-box reveal-left delay-1">
+                    <div class="icon-wrap">
+                      <i class="bi bi-megaphone-fill"></i>
+                    </div>
+                    <h3>Brand Campaigns</h3>
+                    <p>High-conversion social ads, multi-format creatives, and unified brand design systems.</p>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="highlight-box reveal-right delay-2">
+                    <div class="icon-wrap">
+                      <i class="bi bi-brush-fill"></i>
+                    </div>
+                    <h3>Digital Creativity</h3>
+                    <p>Cross-disciplinary design blending 2D illustration, 3D exploration, and editorial typography.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Action Links -->
+              <div class="d-flex flex-wrap gap-3 mt-4 pt-2">
+                <a href="#experience" class="btn-editorial-primary">
+                  <i class="bi bi-briefcase-fill"></i> View Career Journey
+                </a>
+                <a href="#services" class="btn-editorial-outline">
+                  <i class="bi bi-grid-3x3-gap-fill"></i> Explore Services
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 03 — FEATURED WORK / SIGNATURE PROJECTS
+         ============================================================================ -->
+    <section class="section-padding bg-secondary-subtle" id="featured-work" style="background-color: var(--bg-secondary);">
+      <div class="container-xl">
+        
+        <div class="row justify-content-between align-items-end mb-5">
+          <div class="col-lg-7">
+            <span class="section-label">03 / SIGNATURE WORK</span>
+            <h2 class="section-title">Selected Work</h2>
+            <p class="section-subtitle mb-0">
+              A curated collection of motion graphics, brand identity systems, video edits, and creative visual explorations.
+            </p>
+          </div>
+          <div class="col-lg-5 text-lg-end mt-3 mt-lg-0">
+            <a href="https://www.behance.net/yashveerk227b0" target="_blank" rel="noopener noreferrer" class="btn-editorial-outline">
+              <i class="bi bi-behance"></i> Full Portfolio on Behance <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Asymmetric Editorial Grid of 8 Featured Projects -->
+        <div class="row g-4">
+          
+          <!-- Project 01: Motion Graphics -->
+          <div class="col-lg-6 reveal-left">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/motion-graphics-01.jpg" alt="Fluid Kinetic Dynamics Motion Graphics" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-01')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">Motion Graphics</div>
+                <h3 class="project-title">Fluid Kinetic Dynamics</h3>
+                <p class="project-excerpt">
+                  3D kinetic typography and fluid ribbon simulation exploring modern brand energy and movement.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-01')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 02: Brand Identity -->
+          <div class="col-lg-6 reveal-right delay-1">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/brand-identity-01.jpg" alt="Aveline Brand Identity System" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-02')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">Brand Identity</div>
+                <h3 class="project-title">Aveline Brand Identity System</h3>
+                <p class="project-excerpt">
+                  Complete editorial visual identity, bespoke stationery, and packaging guidelines for an artisanal design studio.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-02')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 03: Brand Films -->
+          <div class="col-lg-6 reveal-left">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/brand-film-01.jpg" alt="The Art of Craft Brand Film" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-03')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">Brand Films</div>
+                <h3 class="project-title">The Art of Craft — Brand Film</h3>
+                <p class="project-excerpt">
+                  Cinematic documentary brand film highlighting master artisans, delicate textures, and heritage craftsmanship.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-03')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 04: Social Media Advertising -->
+          <div class="col-lg-6 reveal-right delay-1">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/social-ads-01.jpg" alt="Terralumina Launch Campaign" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-04')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">Social Media Advertising</div>
+                <h3 class="project-title">Terralumina Launch Campaign</h3>
+                <p class="project-excerpt">
+                  High-conversion multi-format social campaign with motion ads, Instagram Stories, and promotional banners.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-04')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 05: Graphic Design -->
+          <div class="col-lg-6 reveal-left">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/poster-design-01.jpg" alt="Modernism Typographic Exhibition Poster" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-05')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">Graphic Design</div>
+                <h3 class="project-title">Modernism Typographic Exhibition</h3>
+                <p class="project-excerpt">
+                  Swiss-style typography poster series investigating grid systems, geometric hierarchy, and warm earth tones.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-05')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 06: Video Editing -->
+          <div class="col-lg-6 reveal-right delay-1">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/video-editing-01.jpg" alt="Commercial Color Grading Video Editing" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-06')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">Video Editing</div>
+                <h3 class="project-title">Commercial Color Grading & Rhythm</h3>
+                <p class="project-excerpt">
+                  Multi-camera commercial edit, precise audio waveforms sync, and warm film emulation color pass.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-06')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 07: 2D Animation -->
+          <div class="col-lg-6 reveal-left">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/animation-2d-01.jpg" alt="Creative Flow Explainer Narrative" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-07')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">2D Animation</div>
+                <h3 class="project-title">Creative Flow Explainer Narrative</h3>
+                <p class="project-excerpt">
+                  Vector character animation and fluid morphing graphic sequence illustrating the digital creative journey.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-07')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 08: Digital Art -->
+          <div class="col-lg-6 reveal-right delay-1">
+            <div class="project-card">
+              <div class="project-thumb-wrap">
+                <img src="assets/projects/digital-art-01.jpg" alt="Celestial Silhouette Visual Exploration" loading="lazy">
+                <div class="project-overlay">
+                  <button type="button" class="project-quick-view-btn" onclick="openProjectDetail('proj-08')">
+                    <i class="bi bi-arrows-fullscreen"></i> View Case Study
+                  </button>
+                </div>
+              </div>
+              <div class="project-body">
+                <div class="project-category-tag">Digital Art</div>
+                <h3 class="project-title">Celestial Silhouette Exploration</h3>
+                <p class="project-excerpt">
+                  Expressive digital art piece painted with gestural brushwork, swirling terracotta energy, and cosmic textures.
+                </p>
+                <a href="javascript:void(0)" onclick="openProjectDetail('proj-08')" class="project-footer-link">
+                  <span>Explore Project Details</span> <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 04 — COMPLETE PORTFOLIO / CREATIVE GALLERY
+         ============================================================================ -->
+    <section class="section-padding" id="gallery">
+      <div class="container-xl">
+        
+        <div class="text-center max-w-700 mx-auto mb-4">
+          <span class="section-label">04 / COMPLETE ARCHIVE</span>
+          <h2 class="section-title">The Creative Archive</h2>
+          <p class="section-subtitle mx-auto">
+            Browse through categorized design pieces, motion frames, social collateral, and digital art with interactive full-screen lightbox inspection.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="gallery-filters" role="group" aria-label="Portfolio category filter">
+          <button type="button" class="filter-btn active" data-filter="all">All Work</button>
+          <button type="button" class="filter-btn" data-filter="motion-graphics">Motion Graphics</button>
+          <button type="button" class="filter-btn" data-filter="branding">Branding</button>
+          <button type="button" class="filter-btn" data-filter="social-media">Social Media</button>
+          <button type="button" class="filter-btn" data-filter="posters">Posters</button>
+          <button type="button" class="filter-btn" data-filter="video-editing">Video Editing</button>
+          <button type="button" class="filter-btn" data-filter="animation">Animation</button>
+          <button type="button" class="filter-btn" data-filter="digital-art">Digital Art</button>
+        </div>
+
+        <!-- Filterable Gallery Grid -->
+        <div class="row g-4" id="gallery-grid">
+          
+          <!-- Item 0 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="motion-graphics">
+            <div class="gallery-card" onclick="openLightbox(0)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/motion-graphics-01.jpg" alt="Fluid Motion 3D Graphics" loading="lazy">
+                <span class="gallery-badge">Motion Graphics</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>Fluid Kinetic Dynamics</h3>
+                <p>3D Motion & Type Exploration</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 1 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="branding">
+            <div class="gallery-card" onclick="openLightbox(1)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/brand-identity-01.jpg" alt="Aveline Brand Identity Specimen" loading="lazy">
+                <span class="gallery-badge">Branding</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>Aveline Identity</h3>
+                <p>Editorial Stationery & System</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="video-editing">
+            <div class="gallery-card" onclick="openLightbox(2)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/brand-film-01.jpg" alt="Art of Craft Film Frame" loading="lazy">
+                <span class="gallery-badge">Brand Films</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>The Art of Craft</h3>
+                <p>Cinematic Documentary Edit</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="social-media">
+            <div class="gallery-card" onclick="openLightbox(3)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/social-ads-01.jpg" alt="Terralumina Social Creatives" loading="lazy">
+                <span class="gallery-badge">Social Media</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>Terralumina Campaign</h3>
+                <p>Mobile Ads & Social Creatives</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="posters">
+            <div class="gallery-card" onclick="openLightbox(4)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/poster-design-01.jpg" alt="Swiss Typography Exhibition Poster" loading="lazy">
+                <span class="gallery-badge">Posters</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>Modernism Poster</h3>
+                <p>Swiss Style Exhibition Print</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="video-editing">
+            <div class="gallery-card" onclick="openLightbox(5)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/video-editing-01.jpg" alt="Commercial Color Waveforms Edit" loading="lazy">
+                <span class="gallery-badge">Video Editing</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>Color & Rhythm</h3>
+                <p>Commercial Grading & Waveforms</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="animation">
+            <div class="gallery-card" onclick="openLightbox(6)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/animation-2d-01.jpg" alt="Creative Flow 2D Vector Animation" loading="lazy">
+                <span class="gallery-badge">Animation</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>Creative Flow</h3>
+                <p>2D Vector Explainer Animation</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item 7 -->
+          <div class="col-sm-6 col-lg-3 gallery-item" data-category="digital-art">
+            <div class="gallery-card" onclick="openLightbox(7)">
+              <div class="gallery-img-wrap">
+                <img src="assets/projects/digital-art-01.jpg" alt="Celestial Silhouette Digital Illustration" loading="lazy">
+                <span class="gallery-badge">Digital Art</span>
+              </div>
+              <div class="gallery-card-content">
+                <h3>Celestial Silhouette</h3>
+                <p>Procreate Digital Artwork</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 05 — CREATIVE SERVICES
+         ============================================================================ -->
+    <section class="section-padding" id="services" style="background-color: var(--bg-secondary);">
+      <div class="container-xl">
+        
+        <div class="row mb-5">
+          <div class="col-lg-8">
+            <span class="section-label">05 / WHAT I DELIVER</span>
+            <h2 class="section-title">Creative Services</h2>
+            <p class="section-subtitle mb-0">
+              Creative solutions designed to help brands communicate clearly and stand out visually across all media touchpoints.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          
+          <!-- Service 1: Motion Graphics -->
+          <div class="col-md-6 col-lg-4 reveal-left">
+            <div class="service-card">
+              <span class="service-num">SERVICE 01</span>
+              <div class="service-icon"><i class="bi bi-film"></i></div>
+              <h3 class="service-title">Motion Graphics</h3>
+              <p class="service-desc">Transforming static concepts into compelling kinetic experiences that hold viewer attention.</p>
+              <ul class="service-list">
+                <li><i class="bi bi-check2"></i> Animated visuals & typography</li>
+                <li><i class="bi bi-check2"></i> Logo animations & brand stings</li>
+                <li><i class="bi bi-check2"></i> Motion-based advertisements</li>
+              </ul>
+              <a href="#contact" class="service-inquire-link"><span>Inquire For Motion</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Service 2: Video Editing -->
+          <div class="col-md-6 col-lg-4 reveal-up delay-1">
+            <div class="service-card">
+              <span class="service-num">SERVICE 02</span>
+              <div class="service-icon"><i class="bi bi-sliders"></i></div>
+              <h3 class="service-title">Video Editing</h3>
+              <p class="service-desc">Precision cutting, seamless audio synchronization, and color grading that elevates brand narratives.</p>
+              <ul class="service-list">
+                <li><i class="bi bi-check2"></i> Promotional & commercial videos</li>
+                <li><i class="bi bi-check2"></i> Social media vertical videos</li>
+                <li><i class="bi bi-check2"></i> Branded content & interviews</li>
+              </ul>
+              <a href="#contact" class="service-inquire-link"><span>Inquire For Video</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Service 3: Graphic Design -->
+          <div class="col-md-6 col-lg-4 reveal-right delay-2">
+            <div class="service-card">
+              <span class="service-num">SERVICE 03</span>
+              <div class="service-icon"><i class="bi bi-vector-pen"></i></div>
+              <h3 class="service-title">Graphic Design</h3>
+              <p class="service-desc">Striking visual design rooted in typographic discipline, grid precision, and strong editorial hierarchy.</p>
+              <ul class="service-list">
+                <li><i class="bi bi-check2"></i> Digital graphics & banners</li>
+                <li><i class="bi bi-check2"></i> Posters & print collateral</li>
+                <li><i class="bi bi-check2"></i> Promotional marketing material</li>
+              </ul>
+              <a href="#contact" class="service-inquire-link"><span>Inquire For Graphics</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Service 4: Brand Identity -->
+          <div class="col-md-6 col-lg-4 reveal-left">
+            <div class="service-card">
+              <span class="service-num">SERVICE 04</span>
+              <div class="service-icon"><i class="bi bi-gem"></i></div>
+              <h3 class="service-title">Brand Identity</h3>
+              <p class="service-desc">Cohesive visual identity systems that give companies distinct personalities and market presence.</p>
+              <ul class="service-list">
+                <li><i class="bi bi-check2"></i> Visual identity systems</li>
+                <li><i class="bi bi-check2"></i> Typography & color direction</li>
+                <li><i class="bi bi-check2"></i> Brand collateral & guidelines</li>
+              </ul>
+              <a href="#contact" class="service-inquire-link"><span>Inquire For Identity</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Service 5: Social Media Creatives -->
+          <div class="col-md-6 col-lg-4 reveal-up delay-1">
+            <div class="service-card">
+              <span class="service-num">SERVICE 05</span>
+              <div class="service-icon"><i class="bi bi-instagram"></i></div>
+              <h3 class="service-title">Social Media Creatives</h3>
+              <p class="service-desc">Attention-grabbing static and animated assets engineered for performance across mobile feeds.</p>
+              <ul class="service-list">
+                <li><i class="bi bi-check2"></i> Social posts & story packages</li>
+                <li><i class="bi bi-check2"></i> Campaign product launches</li>
+                <li><i class="bi bi-check2"></i> Advertising creatives & banners</li>
+              </ul>
+              <a href="#contact" class="service-inquire-link"><span>Inquire For Social</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Service 6: 2D Animation -->
+          <div class="col-md-6 col-lg-4 reveal-right delay-2">
+            <div class="service-card">
+              <span class="service-num">SERVICE 06</span>
+              <div class="service-icon"><i class="bi bi-magic"></i></div>
+              <h3 class="service-title">2D Animation</h3>
+              <p class="service-desc">Charming vector character animations and explanatory graphics breaking down complex products.</p>
+              <ul class="service-list">
+                <li><i class="bi bi-check2"></i> Animated illustrations</li>
+                <li><i class="bi bi-check2"></i> Explainer video visuals</li>
+                <li><i class="bi bi-check2"></i> Short animated sequences</li>
+              </ul>
+              <a href="#contact" class="service-inquire-link"><span>Inquire For Animation</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Service 7: UI/UX Design -->
+          <div class="col-md-6 col-lg-4 reveal-left">
+            <div class="service-card">
+              <span class="service-num">SERVICE 07</span>
+              <div class="service-icon"><i class="bi bi-window-fullscreen"></i></div>
+              <h3 class="service-title">UI/UX Design</h3>
+              <p class="service-desc">User-centric digital interfaces designed with visual clarity, systematic components, and prototyping.</p>
+              <ul class="service-list">
+                <li><i class="bi bi-check2"></i> Interface layouts & wireframes</li>
+                <li><i class="bi bi-check2"></i> Digital visual design systems</li>
+                <li><i class="bi bi-check2"></i> Figma interactive prototypes</li>
+              </ul>
+              <a href="#contact" class="service-inquire-link"><span>Inquire For UI/UX</span> <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 06 — SKILLS & CREATIVE TOOLS
+         ============================================================================ -->
+    <section class="section-padding position-relative overflow-hidden" id="skills">
+      
+      <!-- Cosmic Skills Nebula Video Background (spaceportfolio.netlify.app reference) -->
+      <div class="skills-video-wrap" aria-hidden="true">
+        <video class="skills-video-el" autoplay loop muted playsinline>
+          <source src="assets/videos/skills-bg.webm" type="video/webm">
+        </video>
+      </div>
+
+      <div class="container-xl position-relative" style="z-index: 2;">
+        
+        <div class="row mb-5">
+          <div class="col-lg-7">
+            <span class="section-label">06 / TOOLKIT & EXPERTISE</span>
+            <h2 class="section-title">Tools Behind the Creativity</h2>
+            <p class="section-subtitle mb-0">
+              A comprehensive view of the professional software, design disciplines, and technical workflows utilized over 11+ years of practice.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          
+          <!-- Category 1: Motion & Animation -->
+          <div class="col-md-6 col-lg-4 reveal-on-scroll">
+            <div class="tool-group-card">
+              <h3 class="tool-group-title">
+                <i class="bi bi-play-btn-fill"></i> Motion & Animation
+              </h3>
+              <div class="tool-items-grid">
+                <span class="tool-badge"><i class="bi bi-layers-fill"></i> Adobe After Effects</span>
+                <span class="tool-badge"><i class="bi bi-box"></i> Blender 3D</span>
+                <span class="tool-badge"><i class="bi bi-activity"></i> Motion Graphics</span>
+                <span class="tool-badge"><i class="bi bi-brush"></i> 2D Animation</span>
+                <span class="tool-badge"><i class="bi bi-type"></i> Kinetic Typography</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Video Production -->
+          <div class="col-md-6 col-lg-4 reveal-on-scroll delay-1">
+            <div class="tool-group-card">
+              <h3 class="tool-group-title">
+                <i class="bi bi-camera-video-fill"></i> Video Production
+              </h3>
+              <div class="tool-items-grid">
+                <span class="tool-badge"><i class="bi bi-film"></i> Adobe Premiere Pro</span>
+                <span class="tool-badge"><i class="bi bi-scissors"></i> Video Editing</span>
+                <span class="tool-badge"><i class="bi bi-soundwave"></i> Audio Synchronization</span>
+                <span class="tool-badge"><i class="bi bi-palette-fill"></i> Color Grading</span>
+                <span class="tool-badge"><i class="bi bi-broadcast"></i> Promotional Edits</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3: Graphic Design -->
+          <div class="col-md-6 col-lg-4 reveal-on-scroll delay-2">
+            <div class="tool-group-card">
+              <h3 class="tool-group-title">
+                <i class="bi bi-image-fill"></i> Graphic Design
+              </h3>
+              <div class="tool-items-grid">
+                <span class="tool-badge"><i class="bi bi-file-earmark-image"></i> Adobe Photoshop</span>
+                <span class="tool-badge"><i class="bi bi-vector-pen"></i> Adobe Illustrator</span>
+                <span class="tool-badge"><i class="bi bi-aspect-ratio"></i> Graphic Design</span>
+                <span class="tool-badge"><i class="bi bi-file-richtext"></i> Posters & Collateral</span>
+                <span class="tool-badge"><i class="bi bi-card-image"></i> Digital Graphics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 4: Branding & Digital Design -->
+          <div class="col-md-6 col-lg-6 reveal-on-scroll">
+            <div class="tool-group-card">
+              <h3 class="tool-group-title">
+                <i class="bi bi-diagram-3-fill"></i> Branding & Digital Design
+              </h3>
+              <div class="tool-items-grid">
+                <span class="tool-badge"><i class="bi bi-app"></i> Figma</span>
+                <span class="tool-badge"><i class="bi bi-bullseye"></i> Brand Campaigns</span>
+                <span class="tool-badge"><i class="bi bi-share-fill"></i> Social Media Creatives</span>
+                <span class="tool-badge"><i class="bi bi-chat-heart-fill"></i> Visual Storytelling</span>
+                <span class="tool-badge"><i class="bi bi-ui-checks"></i> Brand Identity Systems</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 5: 3D & Visual Exploration -->
+          <div class="col-md-6 col-lg-6 reveal-on-scroll delay-1">
+            <div class="tool-group-card">
+              <h3 class="tool-group-title">
+                <i class="bi bi-boxes"></i> 3D & Visual Exploration
+              </h3>
+              <div class="tool-items-grid">
+                <span class="tool-badge"><i class="bi bi-box-seam"></i> Blender 3D</span>
+                <span class="tool-badge"><i class="bi bi-circle-square"></i> Three.js Interactivity</span>
+                <span class="tool-badge"><i class="bi bi-window"></i> UI/UX Design</span>
+                <span class="tool-badge"><i class="bi bi-pencil-fill"></i> Procreate Digital Art</span>
+                <span class="tool-badge"><i class="bi bi-lightning-charge-fill"></i> Conceptual Storyboarding</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 07 — PROFESSIONAL EXPERIENCE
+         ============================================================================ -->
+    <section class="section-padding" id="experience" style="background-color: var(--bg-secondary);">
+      <div class="container-xl">
+        
+        <div class="text-center max-w-700 mx-auto mb-5">
+          <span class="section-label">07 / CAREER TIMELINE</span>
+          <h2 class="section-title">Experience & Journey</h2>
+          <p class="section-subtitle mx-auto">
+            11+ years of progressive design leadership across motion graphics, digital campaigns, and commercial video editing.
+          </p>
+        </div>
+
+        <!-- NOTE ON EMPLOYMENT DATES: As supplied in profile records, some employment periods overlap (e.g. CAxpert Mar 2021-Jul 2022 and SalaryBox Mar 2022-Jul 2024). These dates are preserved exactly as provided. Please verify before production publishing. -->
+
+        <div class="timeline-container">
+          
+          <!-- Role 1: Quad -->
+          <div class="timeline-item active-role reveal-on-scroll">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div class="timeline-company">
+                  <i class="bi bi-building"></i> Quad
+                </div>
+                <div class="timeline-dates">August 2024 – Present</div>
+              </div>
+              <div class="timeline-role">Motion Graphic Designer (Full-time)</div>
+              <div class="timeline-location">
+                <i class="bi bi-geo-alt"></i> Faridabad, Haryana, India
+              </div>
+              <p class="timeline-desc">
+                Create engaging motion graphics, animations, and video content that help brands connect with audiences across digital and social platforms. Collaborate with creative and marketing teams to develop promotional videos, branded content, and visual campaigns from concept to final execution.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Motion Graphics</span>
+                <span class="timeline-tag">Video Editing</span>
+                <span class="timeline-tag">Animation</span>
+                <span class="timeline-tag">Visual Storytelling</span>
+                <span class="timeline-tag">Social Media Content</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role 2: SalaryBox -->
+          <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div class="timeline-company">
+                  <i class="bi bi-building"></i> SalaryBox
+                </div>
+                <div class="timeline-dates">March 2022 – July 2024</div>
+              </div>
+              <div class="timeline-role">Senior Graphic Designer & Video Editor</div>
+              <p class="timeline-desc">
+                Created graphic designs and videos for tutorials, social media engagement, and product marketing campaigns. Focused on dynamic animations, compelling graphics, and seamless motion sequences.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Graphic Design</span>
+                <span class="timeline-tag">Video Production</span>
+                <span class="timeline-tag">Product Marketing</span>
+                <span class="timeline-tag">Dynamic Animation</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role 3: CAxpert -->
+          <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div class="timeline-company">
+                  <i class="bi bi-building"></i> CAxpert
+                </div>
+                <div class="timeline-dates">March 2021 – July 2022</div>
+              </div>
+              <div class="timeline-role">Visual & Graphic Designer</div>
+              <p class="timeline-desc">
+                Delivered visual branding assets, digital communications, and graphic design collateral across company touchpoints.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Visual Design</span>
+                <span class="timeline-tag">Brand Communications</span>
+                <span class="timeline-tag">Digital Assets</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role 4: 360 Degree Cloud -->
+          <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div class="timeline-company">
+                  <i class="bi bi-building"></i> 360 Degree Cloud
+                </div>
+                <div class="timeline-dates">August 2019 – March 2021</div>
+              </div>
+              <div class="timeline-role">Photoshop Editor</div>
+              <p class="timeline-desc">
+                Executed high-precision image retouching, marketing graphics composition, and creative digital photo editing.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Photoshop Editing</span>
+                <span class="timeline-tag">Retouching</span>
+                <span class="timeline-tag">Marketing Creatives</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role 5: Moksha Media Group -->
+          <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div class="timeline-company">
+                  <i class="bi bi-building"></i> Moksha Media Group
+                </div>
+                <div class="timeline-dates">June 2017 – August 2019</div>
+              </div>
+              <div class="timeline-role">Creative Graphic Designer</div>
+              <p class="timeline-desc">
+                Designed creative graphic solutions, print materials, social media layouts, and client promotional branding.
+              </p>
+              <div class="timeline-tags">
+                <span class="timeline-tag">Creative Design</span>
+                <span class="timeline-tag">Print Media</span>
+                <span class="timeline-tag">Branding Collateral</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 08 — EDUCATION, ACHIEVEMENTS & RECOGNITION
+         ============================================================================ -->
+    <section class="section-padding" id="education">
+      <div class="container-xl">
+        
+        <div class="row g-5">
+          
+          <!-- Column Left: Education Timeline -->
+          <div class="col-lg-6">
+            <span class="section-label">08 / CREDENTIALS</span>
+            <h2 class="section-title">Education & Background</h2>
+            <p class="section-subtitle mb-4">
+              Foundational academic qualifications supporting over a decade of creative practice.
+            </p>
+
+            <div class="education-card reveal-on-scroll">
+              <div class="edu-institution">School of Open Learning</div>
+              <div class="edu-degree">Bachelor of Arts Program</div>
+              <div class="edu-dates"><i class="bi bi-calendar3 me-1"></i> April 2013 – May 2016</div>
+            </div>
+
+            <div class="education-card reveal-on-scroll delay-1">
+              <div class="edu-institution">GOVT</div>
+              <div class="edu-degree">High School Diploma, CBSE</div>
+              <div class="edu-dates"><i class="bi bi-mortarboard me-1"></i> CBSE Board Curriculum</div>
+            </div>
+
+            <div class="education-card reveal-on-scroll delay-2">
+              <div class="edu-institution">Quad Shared Services India Pvt. Ltd.</div>
+              <div class="edu-degree">Motion Graphic Professional Association</div>
+              <div class="edu-dates"><i class="bi bi-building me-1"></i> August 2024 – Present</div>
+            </div>
+          </div>
+
+          <!-- Column Right: Recognition & The Innovator Award -->
+          <div class="col-lg-6">
+            <span class="section-label">HONORS & AWARDS</span>
+            <h2 class="section-title">Peer Recognition</h2>
+
+            <div class="award-hero-card reveal-on-scroll">
+              <span class="award-badge-pill">
+                <i class="bi bi-trophy-fill"></i> Prestigious Recognition
+              </span>
+
+              <div class="award-image-frame">
+                <img src="assets/images/award-innovator.jpg" alt="The Innovator Award at Quad India">
+              </div>
+
+              <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+                The Innovator Award
+              </h3>
+              <p class="fw-semibold" style="color: var(--brand-primary); margin-bottom: 0.8rem;">
+                Quad India (Quad Shared Services India Pvt. Ltd.)
+              </p>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                Awarded for outstanding innovation, exceptional motion graphics problem-solving, and creative execution across global marketing deliverables at Quad India.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 09 — CREATIVE PROCESS & SOCIAL PROOF
+         ============================================================================ -->
+    <section class="section-padding position-relative overflow-hidden" id="process" style="background-color: var(--bg-secondary);">
+      
+      <!-- Cosmic Energy Video Background (spaceportfolio.netlify.app reference) -->
+      <div class="skills-video-wrap" aria-hidden="true" style="opacity: 0.22;">
+        <video class="skills-video-el" autoplay loop muted playsinline>
+          <source src="assets/videos/encryption-bg.webm" type="video/webm">
+        </video>
+      </div>
+
+      <div class="container-xl position-relative" style="z-index: 2;">
+        
+        <div class="text-center max-w-700 mx-auto mb-5">
+          <span class="section-label">09 / METHODOLOGY</span>
+          <h2 class="section-title">Behind the Visuals</h2>
+          <p class="section-subtitle mx-auto">
+            A structured, intentional four-phase workflow converting abstract briefs into memorable visual motion experiences.
+          </p>
+        </div>
+
+        <!-- 4-Step Creative Process -->
+        <div class="row g-4">
+          
+          <!-- Step 1: Discover -->
+          <div class="col-md-6 col-lg-3 reveal-on-scroll">
+            <div class="process-step-card">
+              <div class="step-number">01</div>
+              <h3 class="step-title">Discover</h3>
+              <p class="step-desc">
+                Understand the brief, audience demographics, brand guidelines, and core narrative objectives.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2: Explore -->
+          <div class="col-md-6 col-lg-3 reveal-on-scroll delay-1">
+            <div class="process-step-card">
+              <div class="step-number">02</div>
+              <h3 class="step-title">Explore</h3>
+              <p class="step-desc">
+                Visual research, moodboards, color harmony references, storyboard sketches, and style frames.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3: Create -->
+          <div class="col-md-6 col-lg-3 reveal-on-scroll delay-2">
+            <div class="process-step-card">
+              <div class="step-number">03</div>
+              <h3 class="step-title">Create</h3>
+              <p class="step-desc">
+                Develop 2D/3D scenes, animate keyframes, time audio rhythms, grade colors, and refine details.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4: Deliver -->
+          <div class="col-md-6 col-lg-3 reveal-on-scroll delay-3">
+            <div class="process-step-card">
+              <div class="step-number">04</div>
+              <h3 class="step-title">Deliver</h3>
+              <p class="step-desc">
+                Prepare optimized production renders across 4K, vertical 9:16, social formats, and source archives.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Creative Proof & Activity Highlights -->
+        <div class="creative-proof-banner reveal-on-scroll">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+                Continuous Artistic Experimentation
+              </h3>
+              <p class="mb-0" style="font-size: 0.95rem; color: var(--text-muted);">
+                Beyond commercial brand deliverables, explore ongoing daily artwork studies, Procreate digital illustrations, and kinetic experiments published regularly on Behance.
+              </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <a href="https://www.behance.net/yashveerk227b0" target="_blank" rel="noopener noreferrer" class="btn-editorial-primary">
+                <i class="bi bi-behance"></i> Explore Behance Gallery
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================================
+         SECTION 10 — CONTACT / LET'S COLLABORATE
+         ============================================================================ -->
+    <section class="section-padding contact-section" id="contact">
+      <div class="container-xl">
+        
+        <div class="row mb-5">
+          <div class="col-lg-8">
+            <span class="section-label">10 / GET IN TOUCH</span>
+            <h2 class="section-title">Have a Creative Project in Mind?</h2>
+            <p class="section-subtitle mb-0">
+              Let's transform your ideas into engaging visual experiences. Available for freelance projects, brand films, and full-time opportunities.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-5 align-items-start">
+          
+          <!-- Column Left: Direct Contact Information -->
+          <div class="col-lg-5">
+            <div class="contact-meta-card reveal-on-scroll">
+              <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 1.3rem; color: var(--text-primary);">
+                Direct Contact Channels
+              </h3>
+
+              <a href="mailto:yashveersinghprajapati@gmail.com" class="contact-link-item">
+                <div class="contact-link-icon"><i class="bi bi-envelope-fill"></i></div>
+                <div>
+                  <small class="d-block text-muted" style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Email Address</small>
+                  <strong style="font-size: 0.95rem;">yashveersinghprajapati@gmail.com</strong>
+                </div>
+              </a>
+
+              <a href="https://www.behance.net/yashveerk227b0" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                <div class="contact-link-icon"><i class="bi bi-behance"></i></div>
+                <div>
+                  <small class="d-block text-muted" style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Behance Portfolio</small>
+                  <strong style="font-size: 0.95rem;">behance.net/yashveerk227b0</strong>
+                </div>
+              </a>
+
+              <div class="contact-link-item">
+                <div class="contact-link-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                <div>
+                  <small class="d-block text-muted" style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Current Location</small>
+                  <strong style="font-size: 0.95rem;">South East Delhi, Delhi, India</strong>
+                </div>
+              </div>
+
+              <div class="contact-link-item">
+                <div class="contact-link-icon"><i class="bi bi-calendar-check-fill"></i></div>
+                <div>
+                  <small class="d-block text-muted" style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700;">Status</small>
+                  <strong style="font-size: 0.95rem; color: #38A169;">Open for Collaborations & Roles</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column Right: Interactive Contact Form -->
+          <div class="col-lg-7">
+            <div class="contact-form-container reveal-on-scroll">
+              <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
+                Start a Project
+              </h3>
+              <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.8rem;">
+                Fill out the project details below to initiate a conversation or launch directly via your email client.
+              </p>
+
+              <form id="contactForm" novalidate>
+                <div class="row g-3">
+                  
+                  <!-- Name Field -->
+                  <div class="col-md-6">
+                    <label for="contactName" class="form-label-editorial">Your Name *</label>
+                    <input type="text" class="form-control form-control-editorial" id="contactName" placeholder="e.g. Jane Doe" required>
+                  </div>
+
+                  <!-- Email Field -->
+                  <div class="col-md-6">
+                    <label for="contactEmail" class="form-label-editorial">Your Email Address *</label>
+                    <input type="email" class="form-control form-control-editorial" id="contactEmail" placeholder="e.g. jane@company.com" required>
+                  </div>
+
+                  <!-- Project Type Selector -->
+                  <div class="col-md-6">
+                    <label for="contactService" class="form-label-editorial">Project Category</label>
+                    <select class="form-select form-select-editorial" id="contactService">
+                      <option value="Motion Graphics" selected>Motion Graphics & Animation</option>
+                      <option value="Brand Films & Video Editing">Brand Films & Video Editing</option>
+                      <option value="Graphic Design & Posters">Graphic Design & Posters</option>
+                      <option value="Brand Identity System">Brand Identity System</option>
+                      <option value="Social Media Creatives">Social Media Advertising</option>
+                      <option value="2D Animation">2D Animation & Explainers</option>
+                      <option value="Full-Time / Freelance Role">Full-Time / Contract Position</option>
+                    </select>
+                  </div>
+
+                  <!-- Budget Selector -->
+                  <div class="col-md-6">
+                    <label for="contactBudget" class="form-label-editorial">Estimated Budget</label>
+                    <select class="form-select form-select-editorial" id="contactBudget">
+                      <option value="Flexible / Discussion" selected>Flexible / Let's Discuss</option>
+                      <option value="Under $1,000">Under $1,000</option>
+                      <option value="$1,000 – $3,000">$1,000 – $3,000</option>
+                      <option value="$3,000 – $5,000">$3,000 – $5,000</option>
+                      <option value="$5,000+">$5,000+</option>
+                    </select>
+                  </div>
+
+                  <!-- Message Area -->
+                  <div class="col-12">
+                    <label for="contactMessage" class="form-label-editorial">Project Details & Objectives *</label>
+                    <textarea class="form-control form-control-editorial" id="contactMessage" rows="4" placeholder="Briefly describe your vision, deadlines, and key requirements..." required></textarea>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <div class="col-12 pt-2">
+                    <button type="submit" class="btn-editorial-primary w-100 py-3" id="submitFormBtn">
+                      <i class="bi bi-send-fill"></i> Send Project Inquiry
+                    </button>
+                  </div>
+
+                </div>
+              </form>
+
+              <!-- Dynamic Status / Mailto Feedback Alert -->
+              <div id="contactStatusAlert" class="d-none mt-4" tabindex="-1"></div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==============================================================================
+       NAVBAR / FOOTER (Structural Component)
+       ============================================================================== -->
+  <footer class="site-footer">
+    <div class="container-xl">
+      <div class="row align-items-center g-4">
+        
+        <div class="col-md-4">
+          <a class="brand-wordmark mb-2" href="#hero">
+            <span>YASHVEER</span>
+            <span class="accent-slash">/</span>
+            <span class="role-tag">DESIGNER</span>
+          </a>
+          <p class="mb-0" style="font-size: 0.85rem; color: var(--text-muted);">
+            Yashveer Singh Prajapati — Motion Graphics & Visual Design Portfolio.
+          </p>
+        </div>
+
+        <div class="col-md-6">
+          <ul class="footer-nav justify-content-md-center">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#featured-work">Work</a></li>
+            <li><a href="#gallery">Archive</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="https://www.behance.net/yashveerk227b0" target="_blank" rel="noopener noreferrer">Behance</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-2 text-md-end">
+          <button type="button" class="back-to-top-btn ms-auto" id="backToTopBtn" aria-label="Back to top of page">
+            <i class="bi bi-arrow-up"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <hr style="border-color: rgba(41, 37, 36, 0.1); margin: 2.5rem 0 1.5rem;">
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2" style="font-size: 0.82rem; color: var(--text-subtle);">
+        <span>&copy; 2026 Yashveer Singh Prajapati. All rights reserved. Crafted with Three.js & Roboto.</span>
+        <span>South East Delhi, Delhi, India</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==============================================================================
+       ACCESSIBLE PROJECT DETAIL MODAL (SECTION 03)
+       ============================================================================== -->
+  <div class="modal fade editorial-modal" id="projectDetailModal" tabindex="-1" aria-labelledby="modalProjectTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span class="badge-editorial mb-1" id="modalProjectCategory">Category</span>
+            <h3 class="modal-title h4 mb-0" id="modalProjectTitle">Project Title</h3>
+          </div>
+          <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#projectDetailModal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-4" style="border-radius: 8px; overflow: hidden; max-height: 400px;">
+            <img src="" id="modalProjectImage" alt="" class="w-100" style="object-fit: cover; max-height: 400px;">
+          </div>
+          <div class="row g-4 mb-4">
+            <div class="col-sm-6">
+              <small class="d-block text-muted text-uppercase fw-bold" style="font-size: 0.72rem;">Role</small>
+              <span id="modalProjectRole" class="fw-semibold text-primary">Role Name</span>
+            </div>
+            <div class="col-sm-6">
+              <small class="d-block text-muted text-uppercase fw-bold" style="font-size: 0.72rem;">Production Year</small>
+              <span id="modalProjectYear" class="fw-semibold text-primary">2024</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <h4 class="h6 fw-bold text-uppercase" style="letter-spacing: 0.05em; color: var(--brand-primary);">Creative Overview</h4>
+            <p id="modalProjectOverview" style="font-size: 0.95rem; color: var(--text-muted);"></p>
+          </div>
+          <div class="mb-3">
+            <h4 class="h6 fw-bold text-uppercase" style="letter-spacing: 0.05em; color: var(--brand-primary);">Objectives & Execution</h4>
+            <p id="modalProjectObjectives" style="font-size: 0.95rem; color: var(--text-muted);"></p>
+          </div>
+          <div>
+            <h4 class="h6 fw-bold text-uppercase mb-2" style="letter-spacing: 0.05em; color: var(--brand-primary);">Toolkit & Software</h4>
+            <div id="modalProjectTools" class="d-flex flex-wrap"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-editorial-outline" data-bs-dismiss="modal">Close</button>
+          <a href="#" id="modalProjectBehance" target="_blank" rel="noopener noreferrer" class="btn-editorial-primary">
+            <i class="bi bi-behance"></i> View on Behance
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       ACCESSIBLE FULL-SCREEN LIGHTBOX MODAL (SECTION 04)
+       ============================================================================== -->
+  <div class="modal fade lightbox-modal" id="lightboxModal" tabindex="-1" aria-labelledby="lightboxTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <span class="badge bg-secondary text-dark" id="lightboxCategory">Category</span>
+            <h3 class="modal-title h5 text-white mt-1" id="lightboxTitle">Artwork Title</h3>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="text-white-50 small" id="lightboxCounter">1 / 8</span>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="modal-body p-4 text-center position-relative">
+          <div class="lightbox-img-container">
+            <img src="" id="lightboxImg" alt="">
+          </div>
+          <!-- Navigation buttons -->
+          <div class="d-flex justify-content-between position-absolute top-50 start-0 end-0 px-3 transform-middle-y" style="transform: translateY(-50%); pointer-events: none;">
+            <button type="button" class="lightbox-nav-btn" id="lightboxPrev" style="pointer-events: auto;" aria-label="Previous artwork">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button type="button" class="lightbox-nav-btn" id="lightboxNext" style="pointer-events: auto;" aria-label="Next artwork">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0 justify-content-between">
+          <small class="text-white-50">Tip: Use Arrow keys on your keyboard to navigate artworks</small>
+          <button type="button" class="btn btn-sm btn-outline-light" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================================================
+       SCRIPTS: Bootstrap 5.3 JS, Three.js, Custom Scene & Logic
+       ============================================================================== -->
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Three.js (r128) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Main Website Interactions & Logic -->
+  <script src="js/script.js"></script>
+
+  <!-- Interactive 3D Three.js Hero Scene -->
+  <script src="js/scene3d.js"></script>
+
+</body>
+</html>
